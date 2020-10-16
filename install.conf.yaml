@@ -8,14 +8,9 @@
     ~/.zshrc: zshrc
 
 - shell:
-  - command: ~/.dotfiles/install_zsh.sh
+  - command: ~/.dotfiles/bin/bootstrap_shell.sh
     stdin: true
     stdout: true
     stderr: true
-    description: Install zsh shell, and set as default shell
-  - command: ~/.dotfiles/install_vim.sh
-    stdin: true
-    stdout: true
-    stderr: true
-    description: Install vim
+    description: Bootstrap the shell with desirable dependencies
 
