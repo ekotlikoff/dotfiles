@@ -21,16 +21,12 @@ set nu
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
-" Side panel directory view with netrw as per https://shapeshed.com/vim-netrw/
+" Directory view with netrw as per https://shapeshed.com/vim-netrw/
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 15
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * Vexplore | wincmd l
-augroup END
 
 " General options
 set nocompatible
@@ -66,4 +62,17 @@ nmap ; :
 " Ctrl + arrow to switch tabs
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
+
+if has("autocmd")
+  " Load base template file per extension
+  augroup templates
+    autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | normal G
+    autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
+  augroup END
+  " Automatically open directory view with netrw
+  augroup ProjectDrawer
+    autocmd!
+    autocmd VimEnter * Vexplore | wincmd l
+  augroup END
+endif
 
