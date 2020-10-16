@@ -4,10 +4,22 @@ source $VIMRUNTIME/defaults.vim
 " Packages sourced as per https://shapeshed.com/vim-packages/
 " Specifically, included as a submodule at the vim start package path.
 
+" Visual settings
+
+" Show 80 character column
+:set colorcolumn=80
+:highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+
 " Solarized
-"set background=dark
 set t_Co=256
-"colorscheme solarized
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
+set nu
+
+" Highlight trailing whitespaces
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$/
 
 " General options
 set nocompatible
@@ -28,14 +40,6 @@ set sts=2 sw=2 et
 set shiftround
 set list
 set listchars=tab:>-
-
-" Highlight trailing whitespaces
-highlight RedundantSpaces ctermbg=red guibg=red
-match RedundantSpaces /\s\+$/
-
-" Show 80 character column
-:set colorcolumn=80
-:highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 " Mappings
 " Remove highlighted search terms with ,m
