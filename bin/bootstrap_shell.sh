@@ -30,8 +30,9 @@ elif [ "${machine}" == "Linux" ]; then
         #dnf install vim
     fi
 elif [ "${machine}" == "Cygwin" ]; then
-    echo "No bootstrapping can be done, please be sure that the following dependencies are installed:"
+    echo "Please be sure that the following dependencies are installed:"
     printf '%s\n' "${dependencies[@]}"
+    echo "Additionally the following cygwin specific packages should be installed: git, openssh, python3."
     echo "Unfortunately I'm unsure how to run zsh in cygwin"
 else
     echo "Unknown OS"
