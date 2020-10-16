@@ -20,9 +20,11 @@ elif [ "${machine}" == "Linux" ]; then
             sudo apt-get --assume-yes install "$dep"
         done
         if [[ "$SHELL" != "$(which zsh)" ]]; then
-            grep -qxF "$(which zsh)" /etc/shells || echo "$(which zsh)" | tee -a /etc/shells > /dev/null
-            chsh -s /bin/zsh
+            echo "Configuring zsh as default shell"
+            grep -qxF "$(which zsh)" /etc/shells || echo "$(which zsh)" | sudo tee -a /etc/shells > /dev/null
+            chsh -s "$(which zsh)"
         fi
+        echo "Bootstrapping complete"
     else
         echo "TODO: dnf not implemented"
         #dnf install vim
