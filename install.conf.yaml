@@ -6,6 +6,7 @@
     ~/.vimrc: vimrc
     ~/.vim: vim
     ~/.zshrc: zshrc
+    ~/.tmux.conf: tmux.conf
 
 - shell:
   - command: ~/.dotfiles/bin/bootstrap_shell.sh

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dependencies=("zsh" "vim")
+dependencies=("zsh" "vim" "tmux")
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -12,7 +12,7 @@ case "${unameOut}" in
 esac
 echo "OS detected: ${machine}"
 if [ "${machine}" == "Mac" ]; then
-    echo "Not yet implemented"
+    echo "TODO: brew not yet implemented"
 elif [ "${machine}" == "Linux" ]; then
     if [ -x "$(command -v apt-get)" ]; then
         for dep in "${dependencies[@]}"; do
