@@ -33,6 +33,7 @@ set nocompatible
 set incsearch
 set smartcase
 set ignorecase
+set gdefault " Global substitutions by default
 set hlsearch
 set showmode
 set backspace=indent,eol,start
@@ -54,6 +55,9 @@ map ,m :noh<CR>
 " exit insert mode
 imap jj <ESC>
 nmap ; :
+" Set Perl syntax for regex
+nnoremap / /\v
+vnoremap / /\v
 
 " Vim autocmds
 if has("autocmd")
@@ -88,4 +92,8 @@ inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 " Commands I am getting familiar with
 " Lexplore to toggle netrw
 " ma -> 'a to set / go to mark
+
+" Things to read
+" https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118
+" https://stevelosh.com/blog/2010/09/coming-home-to-vim
 
