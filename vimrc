@@ -13,7 +13,7 @@ source $VIMRUNTIME/defaults.vim
 " Solarized
 set t_Co=256
 let g:solarized_termcolors=256
-set background=dark
+set background=light
 colorscheme solarized
 set nu
 
@@ -51,28 +51,41 @@ set listchars=tab:>-
 " Mappings
 " Remove highlighted search terms with ,m
 map ,m :noh<CR>
-map ,n :noh<CR>
 " exit insert mode
 imap jj <ESC>
 nmap ; :
-" reformat current paragraph
-:nmap Q gqap
-" reformat current selection
-:vmap Q gq
-" Ctrl + arrow to switch tabs
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
 
+" Vim autocmds
 if has("autocmd")
   " Load base template file per extension
   augroup templates
     autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | normal G
     autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
   augroup END
-  " Automatically open directory view with netrw
-  augroup ProjectDrawer
-    autocmd!
-    autocmd VimEnter * Vexplore | wincmd l
-  augroup END
 endif
+
+" Smart tab complete (uses vim's native tab completion if there is text)
+function! Smart_TabComplete()
+  let line = getline('.')
+  let line_to_cursor = strpart(line, -1, col('.')+1)
+  let word_to_cursor = matchstr(line_to_cursor, "[^ \t]*$")
+  if (strlen(word_to_cursor)==0)
+    return "\<tab>"
+  endif
+  let has_period = match(word_to_cursor, '\.') != -1
+  let has_slash = match(word_to_cursor, '\/') != -1
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>" " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>" " file matching
+  else
+    return "\<C-X>\<C-O>" " plugin matching
+  endif
+endfunction
+
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+" Commands I am getting familiar with
+" Lexplore to toggle netrw
+" ma -> 'a to set / go to mark
 
