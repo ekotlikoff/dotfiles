@@ -7,9 +7,10 @@
     ~/.vim: vim
     ~/.zshrc: zshrc
     ~/.tmux.conf: tmux.conf
+    ~/.dircolors: dircolors
     ~/.minttyrc:
       if: '[[ `uname` = CYGWIN* ]]'
-      path: minttyrc/minttyrc.dark
+      path: minttyrc
 
 - shell:
   - command: ~/.dotfiles/bin/bootstrap_shell.sh
