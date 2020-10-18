@@ -18,7 +18,7 @@ set number
 set cursorline
 
 " Highlight trailing whitespaces
-highlight RedundantSpaces ctermbg=red guibg=red
+highlight RedundantSpaces ctermbg=grey guibg=grey
 match RedundantSpaces /\s\+$/
 
 " Directory view with netrw as per https://shapeshed.com/vim-netrw/
