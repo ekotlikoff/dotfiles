@@ -33,7 +33,8 @@ elif [ "${machine}" == "Cygwin" ]; then
     echo "Please be sure that the following dependencies are installed:"
     printf '%s\n' "${dependencies[@]}"
     echo "Additionally the following cygwin specific packages should be installed: git, openssh, python3."
-    echo "Unfortunately I'm unsure how to run zsh in cygwin"
+    echo "To run zsh as the default shell, set the following environment variable:"
+    echo "SHELL = /usr/bin/zsh"
 else
     echo "Unknown OS"
 fi
