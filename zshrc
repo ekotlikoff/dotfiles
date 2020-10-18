@@ -27,6 +27,10 @@ zstyle ':vcs_info:git:*' formats '%b'
 # Add working directory to prompt
 export PS1="%d %% "
 
+# Set default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin:$HOME/.dotfiles/bin"
 
