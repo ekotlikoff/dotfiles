@@ -71,7 +71,7 @@ endif
 " Smart tab complete (uses vim's native tab completion if there is text)
 function! Smart_TabComplete()
   let line = getline('.')
-  let line_to_cursor = strpart(line, -1, col('.')+1)
+  let line_to_cursor = strpart(line, -1, col('.'))
   let word_to_cursor = matchstr(line_to_cursor, "[^ \t]*$")
   if (strlen(word_to_cursor)==0)
     return "\<tab>"
@@ -88,6 +88,11 @@ function! Smart_TabComplete()
 endfunction
 
 inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+" Configure tabcomplete
+set completeopt=preview,longest
+set wildmode=longest,list,full
+set wildmenu
 
 " Commands I am getting familiar with
 " Lexplore to toggle netrw
