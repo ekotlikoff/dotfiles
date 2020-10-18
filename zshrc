@@ -30,6 +30,7 @@ export PS1="%d %% "
 # Set default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
+set -o vi
 
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin:$HOME/.dotfiles/bin"
