@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if tmux new-session -d -s 'dev'; then
+  # If session did not exist, then configure it, otherwise attach.
+  tmux split-window -hb -l 90
+  tmux select-pane -t "0.1"
+  tmux split-window -v
+  tmux select-pane -t "0.0"
+fi
+
+tmux -2 attach-session -d
+
