@@ -9,7 +9,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.minttyrc:
       if: '[[ `uname` = CYGWIN* ]]'
-      path: minttyrc
+      path: minttyrc/minttyrc.dark
 
 - shell:
   - command: ~/.dotfiles/bin/bootstrap_shell.sh
