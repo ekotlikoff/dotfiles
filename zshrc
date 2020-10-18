@@ -5,8 +5,7 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}'
 zstyle :compinstall filename '/home/pi/.zshrc'
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -17,5 +16,17 @@ unsetopt beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
+# Add vcs info to promp as per https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Zsh
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+# PROMPT=\$vcs_info_msg_0_'%# '
+zstyle ':vcs_info:git:*' formats '%b'
+# Add working directory to prompt
+export PS1="%d %% "
+
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+export PATH="$PATH:$GOPATH/bin:$HOME/.dotfiles/bin"
+
