@@ -7,6 +7,9 @@
     ~/.vim: vim
     ~/.zshrc: zshrc
     ~/.tmux.conf: tmux.conf
+    ~/.minttyrc:
+      if: '[[ `uname` = CYGWIN* ]]'
+      path: minttyrc
 
 - shell:
   - command: ~/.dotfiles/bin/bootstrap_shell.sh
