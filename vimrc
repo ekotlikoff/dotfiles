@@ -8,14 +8,14 @@ source $VIMRUNTIME/defaults.vim
 
 " Show 80 character column
 :set colorcolumn=80
-:highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 " Solarized
 set t_Co=256
 let g:solarized_termcolors=256
-set background=light
+set background=dark
 colorscheme solarized
-set nu
+set number
+set cursorline
 
 " Highlight trailing whitespaces
 highlight RedundantSpaces ctermbg=red guibg=red
