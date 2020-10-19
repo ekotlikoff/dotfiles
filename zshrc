@@ -45,7 +45,12 @@ fi
 # Set default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
-set -o vi
+bindkey -v
+# Remap jj to entering cmd mode
+bindkey -M viins 'jj' vi-cmd-mode
+# Bind / and C-R to reverse search
+bindkey -M vicmd '/' vi-history-search-backward
+bindkey -M vicmd '^R' history-incremental-search-backward
 
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go

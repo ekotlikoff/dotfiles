@@ -98,6 +98,9 @@ set wildmenu
 " Commands I am getting familiar with
 " Lexplore to toggle netrw
 " ma -> 'a to set / go to mark
+" <C-r> " to paste unamed register
+" Use the above to :vim {search_text} * to search for files containing text
+" Then :copen or :cw to browse the files and open in window or new window
 
 " Things to read
 " https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118
