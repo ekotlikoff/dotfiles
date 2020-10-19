@@ -47,6 +47,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 set -o vi
 
+export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
-export PATH="$PATH:$GOPATH/bin:$HOME/.dotfiles/bin"
+export PATH="$PATH:$GOPATH/bin:$GOROOT/bin:$HOME/.dotfiles/bin"
 
