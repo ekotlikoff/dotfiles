@@ -1,4 +1,5 @@
 " Get common defaults
+unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 " Packages sourced as per https://shapeshed.com/vim-packages/
