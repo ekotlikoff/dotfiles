@@ -12,7 +12,10 @@ case "${unameOut}" in
 esac
 echo "OS detected: ${machine}"
 if [ "${machine}" == "Mac" ]; then
-    echo "TODO: brew not yet implemented"
+    for dep in "${dependencies[@]}"; do
+        echo "Installing $dep"
+        brew install "$dep"
+    done
 elif [ "${machine}" == "Linux" ]; then
     if [ -x "$(command -v apt-get)" ]; then
         for dep in "${dependencies[@]}"; do
