@@ -28,19 +28,10 @@ zstyle ':vcs_info:git:*' formats '%b'
 # Add working directory to prompt
 export PS1="%d %% "
 
-# ls colors
-#eval "`dircolors /etc/DIR_COLORS`"
-#alias ls="/bin/ls --color=auto"
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+# Dircolors
+LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
+export LS_COLORS
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Set default editor
 export VISUAL=vim
