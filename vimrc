@@ -90,12 +90,11 @@ if has('langmap') && exists('+langremap')
   " compatible).
   set nolangremap
 endif
+set belloff=all " Turn off sounds
 
 " Style
 set sts=2 sw=2 et
 set shiftround
-set list
-set listchars=tab:>-
 
 " Mappings
 map ,m :noh<CR> " Remove highlighted search terms with ,m
