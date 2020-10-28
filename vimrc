@@ -58,7 +58,6 @@ set gdefault " Global substitutions by default
 set hlsearch
 set showmode
 set backspace=indent,eol,start
-set ai
 set showmatch
 set autowrite
 set scrolloff=10 " Guaranteed context lines
@@ -92,10 +91,6 @@ if has('langmap') && exists('+langremap')
 endif
 set belloff=all " Turn off sounds
 
-" Style
-set sts=2 sw=2 et
-set shiftround
-
 " Mappings
 map ,m :noh<CR> " Remove highlighted search terms with ,m
 imap jj <ESC> " Exit insert mode
@@ -118,6 +113,15 @@ if has("autocmd")
     autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
   augroup END
 endif
+
+" Tabs
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set shiftround
+set smarttab
+set autoindent
 
 " Smart tab complete (uses vim's native tab completion if there is text)
 function! Smart_TabComplete()
