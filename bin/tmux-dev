@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
-if tmux new-session -d -s 'dev'; then
+# Try to get current terminal size and then use it to start a tmux session.
+# This is so tmux doesn't detect terminal size change upon attaching,
+# automatically resize, and in the process clobber our below configs.
+# As per https://superuser.com/questions/354844/cannot-resize-tmux-pane-from-bash-script
+set -- $(stty size) # $1 = rows $2 = columns
+
+if tmux -2 new-session -d -s 'dev' -x "$2" -y "$(($1 - 1))"; then
   # If session did not exist, then configure it, otherwise attach.
-  tmux split-window -hb -l 90
-  tmux select-pane -t "0.1"
+  tmux split-window -hb -l 50%
+  tmux select-pane -t 0.1
   tmux split-window -v
-  tmux select-pane -t "0.0"
+  # Start with the left column pane focused.
+  tmux select-pane -t 0.
+  # Size the left column pane to take up 90 columns.
+  tmux resize-pane -t 'dev:0.0' -x 90
 fi
 
 tmux -2 attach-session -d
