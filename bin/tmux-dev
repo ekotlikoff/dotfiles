@@ -8,14 +8,14 @@ set -- $(stty size) # $1 = rows $2 = columns
 
 if tmux -2 new-session -d -s 'dev' -x "$2" -y "$(($1 - 1))"; then
   # If session did not exist, then configure it, otherwise attach.
-  tmux split-window -hb -l 50%
-  tmux select-pane -t 0.1
-  tmux split-window -v
+  tmux split-window -t dev -hb
+  tmux select-pane -t 'dev:0.1'
+  tmux split-window -t dev -v
   # Start with the left column pane focused.
-  tmux select-pane -t 0.
+  tmux select-pane -t 'dev:0.0'
   # Size the left column pane to take up 90 columns.
   tmux resize-pane -t 'dev:0.0' -x 90
 fi
 
-tmux -2 attach-session -d
+tmux -2 attach-session -d -t dev
 
