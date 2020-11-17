@@ -33,6 +33,14 @@ LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;3
 export LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+# bracketed paste support, see https://cirw.in/blog/bracketed-paste
+
+if [[ ${ZSH_VERSION:0:3} -ge 5.1 ]]; then
+  set zle_bracketed_paste  # Explicitly restore this zsh default
+  autoload -Uz bracketed-paste-magic
+  zle -N bracketed-paste bracketed-paste-magic
+fi
+
 # Set default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -43,6 +51,7 @@ bindkey -M viins 'jj' vi-cmd-mode
 bindkey -M vicmd '/' vi-history-search-backward
 bindkey -M vicmd '^R' history-incremental-search-backward
 
+# Path
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin:$HOME/.dotfiles/bin"
