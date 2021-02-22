@@ -105,6 +105,12 @@ map Q gq " Don't use Ex mode, use Q for formatting.
 " Revert with ":iunmap <C-U>".
 inoremap <C-U> <C-G>u<C-U>
 
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
 " Vim autocmds
 if has("autocmd")
   " Load base template file per extension

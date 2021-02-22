@@ -50,8 +50,11 @@ else
     echo "Unknown OS"
 fi
 
+# Create undo directory for persistent undo.
+mkdir ~/.vim/undo
+
 # Run GoInstallBinaries vim command (provided by
 # https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt) to install Go
-# tool binaries under g:go_bin_path
+# tool binaries under g:go_bin_path.
 echo "Running GoInstallBinaries"
 vim -esN +GoInstallBinaries +qall
