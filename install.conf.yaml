@@ -6,6 +6,7 @@
     ~/.vimrc: vimrc
     ~/.vim: vim
     ~/.zshrc: zshrc
+    ~/.zshenv: zshenv
     ~/.tmux.conf: tmux.conf
     ~/.dircolors: dircolors
     ~/.minttyrc:
