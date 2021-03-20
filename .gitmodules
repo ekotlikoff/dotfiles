@@ -11,3 +11,6 @@
 [submodule "vim/pack/plugins/start/rust.vim"]
 	path = vim/pack/plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "vim/pack/plugins/start/vim-racer"]
+	path = vim/pack/plugins/start/vim-racer
+	url = https://github.com/racer-rust/vim-racer
