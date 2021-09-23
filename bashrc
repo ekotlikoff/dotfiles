@@ -84,6 +84,15 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# colorful man pages
+export LESS_TERMCAP_mb=" [35m" # magenta
+export LESS_TERMCAP_md=" [33m" # yellow
+export LESS_TERMCAP_me="" # " 0m"
+export LESS_TERMCAP_se="" # " 0m"
+export LESS_TERMCAP_so=" [34m" # blue
+export LESS_TERMCAP_ue="" # " 0m"
+export LESS_TERMCAP_us=" [4m" # underline
+
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
