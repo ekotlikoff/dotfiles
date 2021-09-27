@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 
 # If not running interactively, don't do anything
 case $- in
