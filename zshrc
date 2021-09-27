@@ -59,3 +59,4 @@ export PATH="$PATH:$GOPATH/bin:$GOROOT/bin:$HOME/.dotfiles/bin"
 
 # Aliases
 alias '?'=duck
+alias ls='ls -G'
