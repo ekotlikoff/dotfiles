@@ -52,8 +52,10 @@ bindkey -M vicmd '/' vi-history-search-backward
 bindkey -M vicmd '^R' history-incremental-search-backward
 
 # Path
-export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin:$HOME/.dotfiles/bin"
 
+# Aliases
+alias '?'=duck

@@ -25,7 +25,10 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
+
+# Expand aliases in non-interactive shell
+shopt -s expand_aliases
 
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -109,6 +112,8 @@ export LESS_TERMCAP_us=" [4m" # underline
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+alias '?'=duck
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

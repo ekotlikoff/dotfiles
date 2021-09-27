@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+search=`echo "$*" | sed -e 's/ /%20/g'`
+exec lynx "https://lite.duckduckgo.com/lite?kd=-1&kp=-1&q=$search" # 🦆
