@@ -26,7 +26,7 @@ if [ "${machine}" == "Mac" ]; then
 elif [ "${machine}" == "Linux" ]; then
     if [ -x "$(command -v apt-get)" ]; then
         dependencies="sudo $dependencies"
-        for dep in "${dependencies[@] "sudo"}"; do
+        for dep in "${dependencies[@]}"; do
             echo "Installing $dep"
             sudo apt-get --assume-yes install "$dep"
         done
