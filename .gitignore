@@ -1,4 +1,4 @@
 .netrwhist
 *.swp
 *.swo
-vim/undo/*
+vim/vim/undo/*
