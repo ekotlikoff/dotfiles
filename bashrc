@@ -117,6 +117,15 @@ fi
 
 alias '?'=duck
 
+# Path
+if [ -f ~/.cargo/env ]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
+fi
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH="$PATH:$GOPATH/bin:$GOROOT/bin:$HOME/.dotfiles/bin"
+
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -128,4 +137,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-source "$HOME/.cargo/env"
+if [ -f ~/.cargo/env ]; then
+  source "$HOME/.cargo/env"
+fi
