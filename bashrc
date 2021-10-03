@@ -116,6 +116,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 alias '?'=duck
+alias vi=vim
 
 # Path
 if [ -f ~/.cargo/env ]; then
