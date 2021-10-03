@@ -120,6 +120,7 @@ alias vi=vim
 
 # Path
 if [ -f ~/.cargo/env ]; then
+  source "$HOME/.cargo/env"
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library
 fi
 export GOROOT=/usr/local/go
@@ -136,8 +137,4 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
-fi
-
-if [ -f ~/.cargo/env ]; then
-  source "$HOME/.cargo/env"
 fi
