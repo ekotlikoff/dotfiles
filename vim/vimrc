@@ -1,16 +1,8 @@
 " Packages sourced as per https://shapeshed.com/vim-packages/
 " Specifically, included as a submodule at the vim start package path.
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-" Avoid side effects when it was already reset.
-let skip_defaults_vim=1
-set nocompatible
-
-syntax enable
-let c_comment_strings=1
-
-" Visual settings
+syntax on
+filetype plugin indent on
 
 " Show 80 character column
 :set colorcolumn=80
@@ -28,23 +20,13 @@ set cursorline
 highlight RedundantSpaces ctermbg=grey guibg=grey
 match RedundantSpaces /\s\+$/
 
-" Directory view with netrw as per https://shapeshed.com/vim-netrw/
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 15
-
 " General options
-set nocompatible
 set incsearch
 set smartcase
 set ignorecase
 set gdefault " Global substitutions by default
 set showmode
-set backspace=indent,eol,start
 set showmatch
-set autowrite
 set scrolloff=10 " Guaranteed context lines
 set history=200 " Keep 200 lines of command line history
 set ruler " Show the cursor position all the time
@@ -55,13 +37,9 @@ set display=truncate " Show @@@ in the last line if it is truncated.
 " Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
 set noswapfile
-set icon
 " Text search
 set incsearch
 set hlsearch
-" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-" confusing.
-set nrformats-=octal
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries.
 if has('win32')
   set guioptions-=t
@@ -78,14 +56,16 @@ set belloff=all " Turn off sounds
 " configs easier)
 nmap ; :
 map Y y$ " make Y consistent with D and C (yank til end)
-"map ,m :noh<CR> " Remove highlighted search terms with ,m
-"imap jj <ESC> " Exit insert mode, use <C-[> instead
 
 " Persistent undo
 set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
+
+" Buffers
+set hidden " Possibility to have more than one unsaved buffers.
+set path+=** " Search recursively search through subdirectories
 
 " Vim autocmds
 if has("autocmd")
@@ -106,38 +86,17 @@ set smarttab
 set autoindent
 set smartindent
 
-" Smart tab complete (uses vim's native tab completion if there is text)
-function! Smart_TabComplete()
-  let line = getline('.')
-  let line_to_cursor = strpart(line, -1, col('.'))
-  let word_to_cursor = matchstr(line_to_cursor, "[^ \t\(\[]*$")
-  if (strlen(word_to_cursor)==0)
-    return "\<tab>"
-  endif
-  let has_period = match(word_to_cursor, '\.') != -1
-  let has_slash = match(word_to_cursor, '\/') != -1
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>" " existing text matching
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>" " file matching
-  else
-    return "\<C-X>\<C-O>" " plugin matching
-  endif
-endfunction
-
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-
 " Configure tabcomplete
-set completeopt=longest,menu
-set wildmode=longest,list,full
 set wildmenu
 
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-" Revert with ":filetype off".
-filetype plugin indent on
+function! CleverTab()
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+      return "\<Tab>"
+    else
+      return "\<C-N>"
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Put these in an autocmd group, so that you can revert them with:
 " ":augroup vimStartup | au! | augroup END"
@@ -155,39 +114,6 @@ augroup vimStartup
 
 augroup END
 
-" autoset :paste (bracketed paste)
-" https://github.com/ConradIrwin/vim-bracketed-paste/blob/master/plugin/bracketed-paste.vim
-let &t_ti .= "\<Esc>[?2004h"
-let &t_te = "\e[?2004l" . &t_te
-
-function! XTermPasteBegin(ret)
-  set pastetoggle=<f29>
-  set paste
-  return a:ret
-endfunction
-
-execute "set <f28>=\<Esc>[200~"
-execute "set <f29>=\<Esc>[201~"
-map <expr> <f28> XTermPasteBegin("i")
-imap <expr> <f28> XTermPasteBegin("")
-vmap <expr> <f28> XTermPasteBegin("c")
-cmap <f28> <nop>
-cmap <f29> <nop>
-
-" Commands I am getting familiar with
-" Lexplore to toggle netrw (t to open a file in new tab, p in pane)
-" ma -> 'a to set / go to mark
-" <C-r> " to paste unamed register
-" Use the above to :vim {search_text} * to search for files containing text
-" Then :copen or :cw to browse the files and open in window or new window
-" ! to execute text in vim against any shell command, e.g. !!python,
-" !}bash, etc
-" "* is the system clipboard register, slick!
-
-" Things to read
-" https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118
-" https://stevelosh.com/blog/2010/09/coming-home-to-vim
-
 augroup Racer
     autocmd!
     autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
@@ -196,3 +122,27 @@ augroup Racer
     autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
     autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
 augroup END
+
+" Commands I am getting familiar with
+" buffers/splits
+"   :e to open a new buffer in the current window
+"   :b to open an existing buffer
+"   :ls to list existing buffers
+"   :sp to split current window into two panes
+"   <C-W> + direction to navigate panes
+" ma -> 'a to set / go to mark
+" <C-r> " to paste unamed register
+" Use the above to :vim {search_text} * to search for files containing text
+"   Then :copen or :cw to browse the files and open in window or new window
+"   or just :ls to view the opened buffers
+" ! to execute text in vim against any shell command, e.g. full lines: !!python,
+"   !$bash, etc
+" "* is the system clipboard register
+" ctags - CTRL-] and g CTRL-] can use ctags files to search for tags across
+"   languages/file types. It might be worth installing exuberant ctags and
+"   configuring it for go in ~/.ctags as per https://go-wise.blogspot.com/2011/09/using-ctags-with-go.html
+
+" Things to read
+" https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118
+" https://stevelosh.com/blog/2010/09/coming-home-to-vim
+" https://github.com/romainl/idiomatic-vimrc
