@@ -9,7 +9,6 @@ filetype plugin indent on
 set textwidth=80
 
 " Solarized
-set t_Co=256
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
@@ -21,20 +20,15 @@ highlight RedundantSpaces ctermbg=grey guibg=grey
 match RedundantSpaces /\s\+$/
 
 " General options
-set incsearch
 set smartcase
 set ignorecase
-set gdefault " Global substitutions by default
-set showmode
 set showmatch
 set scrolloff=10 " Guaranteed context lines
 set history=200 " Keep 200 lines of command line history
-set ruler " Show the cursor position all the time
 set showcmd " Display incomplete commands
 set ttimeout " Time out for key codes
 set ttimeoutlen=100 " Wait up to 100ms after Esc for special key
 set display=truncate " Show @@@ in the last line if it is truncated.
-" Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
 set noswapfile
 " Text search
@@ -51,6 +45,7 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 set belloff=all " Turn off sounds
+set wildmenu
 
 " Mappings (only a few of these to make working on remote hosts with default
 " configs easier)
@@ -85,9 +80,6 @@ set shiftround
 set smarttab
 set autoindent
 set smartindent
-
-" Configure tabcomplete
-set wildmenu
 
 function! CleverTab()
     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
@@ -138,9 +130,8 @@ augroup END
 " ! to execute text in vim against any shell command, e.g. full lines: !!python,
 "   !$bash, etc
 " "* is the system clipboard register
-" ctags - CTRL-] and g CTRL-] can use ctags files to search for tags across
-"   languages/file types. It might be worth installing exuberant ctags and
-"   configuring it for go in ~/.ctags as per https://go-wise.blogspot.com/2011/09/using-ctags-with-go.html
+" ctags - CTRL-] and g CTRL-] can use ctags files to search for tags across languages
+"   configuring it for go in ~/.ctags as per https://stackoverflow.com/questions/8204367/ctag-database-for-go https://gist.github.com/nazgob/1570678
 
 " Things to read
 " https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118
