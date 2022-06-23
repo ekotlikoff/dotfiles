@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/Users/ekotlikoff/.dotfiles'
+let g:netrw_dirhist_7='/Users/ekotlikoff/.dotfiles/tmux'
+let g:netrw_dirhist_6='/Users/ekotlikoff/.dotfiles'
 let g:netrw_dirhist_5='/Users/ekotlikoff/.dotfiles/vim/vim.symlink/ftplugin'
 let g:netrw_dirhist_4='/Users/ekotlikoff/.dotfiles/vim/vim.symlink'
 let g:netrw_dirhist_3='/Users/ekotlikoff/.dotfiles/vim'
