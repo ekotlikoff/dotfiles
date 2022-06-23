@@ -1,23 +1,10 @@
 " Packages sourced as per https://shapeshed.com/vim-packages/
 " Specifically, included as a submodule at the vim start package path.
+"
+" Additional bits of configuration organized into .vim/plugin/* and .vim/ftplugin/*
 
 syntax on
 filetype plugin indent on
-
-" Show 80 character column
-:set colorcolumn=80
-set textwidth=80
-
-" Solarized
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
-set number
-set cursorline
-
-" Highlight trailing whitespaces
-highlight RedundantSpaces ctermbg=grey guibg=grey
-match RedundantSpaces /\s\+$/
 
 " General options
 set smartcase
@@ -52,12 +39,6 @@ set wildmenu
 nmap ; :
 map Y y$ " make Y consistent with D and C (yank til end)
 
-" Persistent undo
-set undofile
-set undodir=$HOME/.vim/undo
-set undolevels=1000         " How many undos
-set undoreload=10000        " number of lines to save for undo
-
 " Buffers
 set hidden " Possibility to have more than one unsaved buffers.
 set path+=** " Search recursively search through subdirectories
@@ -81,18 +62,6 @@ set smarttab
 set autoindent
 set smartindent
 
-" Autocomplete
-set completeopt-=preview
-set omnifunc=syntaxcomplete#Complete
-function! CleverTab()
-    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-      return "\<Tab>"
-    else
-      return "\<C-X>\<C-O>"
-    endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
-
 " Put these in an autocmd group, so that you can revert them with:
 " ":augroup vimStartup | au! | augroup END"
 augroup vimStartup
@@ -107,15 +76,6 @@ augroup vimStartup
     \ |   exe "normal! g`\""
     \ | endif
 
-augroup END
-
-augroup Racer
-    autocmd!
-    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-    autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
 augroup END
 
 " Commands I am getting familiar with

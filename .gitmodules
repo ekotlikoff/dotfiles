@@ -1,12 +1,12 @@
 [submodule "vim/vim/pack/plugins/start/rust.vim"]
-	path = vim/vim/pack/plugins/start/rust.vim
+	path = vim/vim.symlink/pack/plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
 [submodule "vim/vim/pack/plugins/start/vim-airline"]
-	path = vim/vim/pack/plugins/start/vim-airline
+	path = vim/vim.symlink/pack/plugins/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline
 [submodule "vim/vim/pack/plugins/start/vim-go"]
-	path = vim/vim/pack/plugins/start/vim-go
+	path = vim/vim.symlink/pack/plugins/start/vim-go
 	url = https://github.com/fatih/vim-go
 [submodule "vim/vim/pack/plugins/start/vim-racer"]
-	path = vim/vim/pack/plugins/start/vim-racer
+	path = vim/vim.symlink/pack/plugins/start/vim-racer
 	url = https://github.com/racer-rust/vim-racer

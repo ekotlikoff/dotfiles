@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-ln -sf "$PWD/vimrc" "$HOME/.vimrc"
-ln -sf "$PWD/vim" "$HOME/.vim"

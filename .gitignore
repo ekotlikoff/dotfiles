@@ -1,4 +1,2 @@
-.netrwhist
-*.swp
-*.swo
-vim/vim/undo/*
+git/gitconfig.local.symlink
+vim/vim.symlink/undo*
