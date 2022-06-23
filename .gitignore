@@ -1,4 +1,1 @@
-.netrwhist
-*.swp
-*.swo
-vim/vim/undo/*
+vim/vim.symlink/undo*
