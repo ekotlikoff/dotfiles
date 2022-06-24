@@ -7,6 +7,7 @@ syntax on
 filetype plugin indent on
 
 " General options
+let mapleader = ","
 set smartcase
 set ignorecase
 set showmatch
@@ -43,14 +44,11 @@ map Y y$ " make Y consistent with D and C (yank til end)
 set hidden " Possibility to have more than one unsaved buffers.
 set path+=** " Search recursively search through subdirectories
 
-" Vim autocmds
-if has("autocmd")
-  " Load base template file per extension
-  augroup templates
-    autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | normal G
-    autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
-  augroup END
-endif
+" Load base template file per extension
+augroup templates
+  autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | normal G
+  autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
+augroup END
 
 " Tabs
 set expandtab

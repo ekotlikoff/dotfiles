@@ -1,0 +1,18 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "java",
+    "javascript",
+    "html",
+    "json",
+    "rust",
+    "yaml"
+  ],
+  "go.goplsEnv": {
+    "GOOS": "js",
+    "GOARCH": "wasm"
+  },
+  "go.goplsOptions": {
+    "completeUnimported": true
+  }
+}
