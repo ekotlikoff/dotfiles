@@ -1,15 +1,15 @@
 " Put plugins and dictionaries in this dir (also on Windows)
-let vimDir = '$HOME/.vim'
+let configDir = '$HOME/.config'
 
-if stridx(&runtimepath, expand(vimDir)) == -1
-  " vimDir is not on runtimepath, add it
-  let &runtimepath.=','.vimDir
+if stridx(&runtimepath, expand(configDir)) == -1
+  " configDir is not on runtimepath, add it
+  let &runtimepath.=','.configDir
 endif
 
 if has('persistent_undo')
-    let myUndoDir = expand(vimDir . '/undo')
+    let myUndoDir = expand(configDir . '/undo')
     " Create dirs
-    call system('mkdir ' . vimDir)
+    call system('mkdir ' . configDir)
     call system('mkdir ' . myUndoDir)
     let &undodir = myUndoDir
     set undofile
