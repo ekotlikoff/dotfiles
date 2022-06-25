@@ -10,6 +10,7 @@ then
   echo '  Installing CoC.'
   brew install node
   vim -esN +'helptags $HOME/.vim/pack/plugins/start/coc.nvim/doc/' +qall
+  vim -esN +'helptags $HOME/.vim/pack/plugins/start/nerdtree/doc/' +qall
   echo '  Installing CoC extensions.'
   coc_extensions='coc-json coc-html coc-go coc-jedi' # coc-java
   vim -esN +"CocInstall -sync $coc_extensions | q" +qall
