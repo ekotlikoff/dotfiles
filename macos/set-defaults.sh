@@ -4,7 +4,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # Use AirDrop over every interface.
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
-# Always open everything in Finder's list view. This is important.
+# Always open everything in Finder's list view.
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
 # Show the ~/Library folder.
@@ -15,6 +15,9 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Key repeat starts quicker, without this the tmux prefix times out before a held down key starts repeating (makes resizing panes less fun).
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# Reduce motion in favor of snappy animation-less movements.
+defaults write com.apple.Accessibility ReduceMotionEnabled 1
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
