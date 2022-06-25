@@ -10,8 +10,11 @@ defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
-# Set a really fast key repeat.
+# Set a fast key repeat.
 defaults write NSGlobalDomain KeyRepeat -int 1
+
+# Key repeat starts quicker, without this the tmux prefix times out before a held down key starts repeating (makes resizing panes less fun).
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
