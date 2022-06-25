@@ -11,10 +11,10 @@ defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 chflags nohidden ~/Library
 
 # Set a fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -int 2
 
 # Key repeat starts quicker, without this the tmux prefix times out before a held down key starts repeating (makes resizing panes less fun).
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain InitialKeyRepeat -int 25
 
 # Reduce motion in favor of snappy animation-less movements.
 defaults write com.apple.Accessibility ReduceMotionEnabled 1
