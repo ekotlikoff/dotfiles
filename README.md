@@ -11,8 +11,9 @@ This repo configures the below components for a nice developer setup. It is curr
     - [vim-vinegar](https://github.com/tpope/vim-vinegar) and [vim-eunuch](https://github.com/tpope/vim-eunuch) for netrw improvements and simple filesystem commands like `:Move`
     - [vim-commentary](https://github.com/tpope/vim-commentary) for slick comment/uncomment command `gc`
     - [vim-fugitive](https://github.com/tpope/vim-fugitive) for `:Git` fun
-    - [vim-surround](https://github.com/tpope/vim-surround) for nice surround commands like `cs"'` "hello" -> 'hello' and `ysiw"` hello -> "hello"
-    - [vim-repeat](https://github.com/tpope/vim-repeat) to nicely support `.` with vim-surround commands
+    - [vim-surround](https://github.com/tpope/vim-surround) for surround commands like `cs"'` "hello" -> 'hello' and `ysiw"` hello -> "hello"
+    - [vim-speeddating](https://github.com/tpope/vim-speeddating) for improved increment/decrement `C-S` and `C-X`, C-S is [configured](vim/vim.symlink/plugin/speeddating.vim) instead of the default C-A because that is the chosen tmux prefix here
+    - [vim-repeat](https://github.com/tpope/vim-repeat) to nicely support `.` with vim-surround and vim-speeddating commands
 - Tmux terminal multiplexer
   - This is [configured](tmux/config/vim.conf) to be vim-like in its mappings
 - ZSH configs

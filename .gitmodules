@@ -29,3 +29,6 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-repeat"]
 	path = vim/vim.symlink/pack/plugin/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
+[submodule "vim/vim.symlink/pack/plugin/start/vim-speeddating"]
+	path = vim/vim.symlink/pack/plugin/start/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating

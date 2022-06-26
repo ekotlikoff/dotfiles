@@ -18,6 +18,7 @@ then
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-vinegar/doc/' +qall
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-eunuch/doc' +qall
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-commentary/doc/' +qall
+  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-speeddating/doc/' +qall
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-surround/doc/' +qall
 fi
 
