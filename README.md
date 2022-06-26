@@ -3,6 +3,8 @@
 This repo configures the below components for a nice developer setup. It is currently only tested on macos.
 
 ### Components
+- Alacritty terminal emulator
+  - Lightweight and configurable
 - Vim text editor
   - Try to minimize plugins to what vim is not natively good at
     - Nerdtree for simple file system manipulation (move files, etc).

@@ -1,0 +1,52 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator
+import:
+  - $DOT/alacritty/color.yml
+
+# Any items in the `env` entry below will be added as
+# environment variables. Some entries may override variables
+# set by alacritty it self.
+env:
+  # TERM env customization.
+  #
+  # If this property is not set, alacritty will set it to xterm-256color.
+  #
+  # Note that some xterm terminfo databases don't declare support for italics.
+  # You can verify this by checking for the presence of `smso` and `sitm` in
+  # `infocmp xterm-256color`.
+  TERM: xterm-256color
+
+window:
+  startup_mode: Maximized
+
+  # Adds this many blank pixels of padding around the window
+  # Units are physical pixels; this is not DPI aware.
+  # (change requires restart)
+  padding:
+    x: 0
+    y: 0
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: false
+
+  dynamic_title: true
+
+
+  # Window decorations
+  # Setting this to false will result in window without borders and title bar.
+  decorations: full
+
+# When true, bold text is drawn using the bright variant of colors.
+draw_bold_text_with_bright_colors: true
+
+scrolling:
+  # Maximum number of lines in the scrollback buffer.
+  history: 5000
+
+shell:
+  program: /usr/local/bin/tmux
+  args:
+    - new-session
+    - -A
+    - -D
+    - -s
+    - main
