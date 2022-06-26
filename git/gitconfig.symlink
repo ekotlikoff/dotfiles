@@ -4,6 +4,15 @@
 [core]
         excludesfile = ~/.gitignore
         editor = vim
+[alias]
+        s = status -sb
+        ll = log --oneline
+        last = log -1 HEAD --stat
+        cm = commit -m
+        # Show diff btw two commits e.g. git dv 33559c5 ca1494d file1
+        dv = difftool -t vimdiff -y
+        # Search commits for changed code
+        se = !git rev-list --all | xargs git grep -F
 [mergetool]
         keepBackup = false
 [difftool]
