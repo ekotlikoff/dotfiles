@@ -14,3 +14,6 @@
 [submodule "zsh/plugin/typewritten"]
 	path = zsh/plugin/typewritten
 	url = https://github.com/reobin/typewritten
+[submodule "vim/vim.symlink/pack/plugin/start/vim-commentary"]
+	path = vim/vim.symlink/pack/plugin/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
