@@ -7,10 +7,10 @@ This repo configures the below components for a nice developer setup. It is curr
   - Lightweight and configurable
 - Vim text editor
   - Try to minimize plugins to what vim is not natively good at
-    - [Nerdtree](https://github.com/preservim/nerdtree) for simple file system manipulation (move files, etc).
     - [CoC](https://github.com/neoclide/coc.nvim) for multi language lsp support. This lets me set [maps](vim/vim.symlink/plugin/coc.vim) that apply to all languages (`gd` for go to definition, `gr` for get references, etc). To onboard a new lang simply add the CoC extension to [coc_extensions](vim/install.sh). No new vim configs/mappings required.
+    - [vim-vinegar](https://github.com/tpope/vim-vinegar) and [vim-eunuch](https://github.com/tpope/vim-eunuch) for netrw improvements and simple filesystem commands like `:Move`
     - [vim-commentary](https://github.com/tpope/vim-commentary) for slick comment/uncomment command `gc`
-    - [vim-fugitive](https://github.com/tpope/vim-fugitive) for git fun
+    - [vim-fugitive](https://github.com/tpope/vim-fugitive) for `:Git` fun
 - Tmux terminal multiplexer
   - This is [configured](tmux/config/vim.conf) to be vim-like in its mappings.
 - ZSH configs

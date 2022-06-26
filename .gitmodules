@@ -5,9 +5,6 @@
 	path = vim/vim.symlink/pack/plugin/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = release
-[submodule "vim/vim.symlink/pack/plugin/start/nerdtree"]
-	path = vim/vim.symlink/pack/plugin/start/nerdtree
-	url = https://github.com/preservim/nerdtree.git
 [submodule "zsh/plugin/zsh-syntax-highlighting"]
 	path = zsh/plugin/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
@@ -20,3 +17,9 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-fugitive"]
 	path = vim/vim.symlink/pack/plugin/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/vim.symlink/pack/plugin/start/vim-eunuch"]
+	path = vim/vim.symlink/pack/plugin/start/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch
+[submodule "vim/vim.symlink/pack/plugin/start/vim-vinegar"]
+	path = vim/vim.symlink/pack/plugin/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
