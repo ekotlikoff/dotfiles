@@ -1,13 +1,13 @@
 [submodule "vim/vim/pack/plugins/start/rust.vim"]
-	path = vim/vim.symlink/pack/plugins/start/rust.vim
+	path = vim/vim.symlink/pack/plugin/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
 [submodule "vim/vim.symlink/pack/plugins/start/coc.nvim"]
-	path = vim/vim.symlink/pack/plugins/start/coc.nvim
+	path = vim/vim.symlink/pack/plugin/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = release
 [submodule "vim/vim.symlink/pack/plugins/start/nerdtree"]
-	path = vim/vim.symlink/pack/plugins/start/nerdtree
+	path = vim/vim.symlink/pack/plugin/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 [submodule "zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
+	path = zsh/plugin/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
