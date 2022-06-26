@@ -13,13 +13,9 @@ then
   coc_extensions='coc-json coc-html coc-go coc-jedi' # coc-java
   vim -esN +"CocInstall -sync $coc_extensions | q" +qall
   echo '  installing helptags'
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/coc.nvim/doc/' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-fugitive/doc/' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-vinegar/doc/' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-eunuch/doc' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-commentary/doc/' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-speeddating/doc/' +qall
-  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-surround/doc/' +qall
+  for plugin in $(find -H "$HOME/.vim/pack/plugin/start/" -maxdepth 2 -name 'doc'); do
+    vim -esN +"helptags $plugin" +qall
+  done
 fi
 
 exit 0
