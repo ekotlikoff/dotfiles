@@ -14,6 +14,7 @@ then
   vim -esN +"CocInstall -sync $coc_extensions | q" +qall
   echo '  Installing helptags'
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-commentary/doc/' +qall
+  vim -esN +'helptags $HOME/.vim/pack/plugin/start/vim-fugitive/doc/' +qall
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/coc.nvim/doc/' +qall
   vim -esN +'helptags $HOME/.vim/pack/plugin/start/nerdtree/doc/' +qall
 fi

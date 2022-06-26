@@ -17,3 +17,6 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-commentary"]
 	path = vim/vim.symlink/pack/plugin/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
+[submodule "vim/vim.symlink/pack/plugin/start/vim-fugitive"]
+	path = vim/vim.symlink/pack/plugin/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
