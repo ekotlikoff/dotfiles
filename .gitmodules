@@ -23,3 +23,9 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-vinegar"]
 	path = vim/vim.symlink/pack/plugin/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
+[submodule "vim/vim.symlink/pack/plugin/start/vim-surround"]
+	path = vim/vim.symlink/pack/plugin/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim/vim.symlink/pack/plugin/start/vim-repeat"]
+	path = vim/vim.symlink/pack/plugin/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
