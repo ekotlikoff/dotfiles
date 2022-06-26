@@ -5,6 +5,7 @@
         excludesfile = ~/.gitignore
         editor = vim
 [alias]
+        p = push
         s = status -sb
         ll = log --oneline
         last = log -1 HEAD --stat
@@ -24,6 +25,6 @@
         # for more information on different options of the below setting.
         default = simple
 [credential]
-	helper = osxkeychain
+        helper = osxkeychain
 [init]
-	defaultBranch = main
+        defaultBranch = main
