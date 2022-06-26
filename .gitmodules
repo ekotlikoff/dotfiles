@@ -29,3 +29,6 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-speeddating"]
 	path = vim/vim.symlink/pack/plugin/start/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
+[submodule "vim/vim.symlink/pack/plugin/start/vim-highlightedyank"]
+	path = vim/vim.symlink/pack/plugin/start/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank
