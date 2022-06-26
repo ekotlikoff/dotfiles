@@ -8,3 +8,6 @@
 [submodule "vim/vim.symlink/pack/plugins/start/nerdtree"]
 	path = vim/vim.symlink/pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
+[submodule "zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting

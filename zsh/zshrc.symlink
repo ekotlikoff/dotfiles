@@ -8,9 +8,10 @@ then
   source ~/.localrc
 fi
 
-# all of our zsh files
+# all of our zsh files (not including anything in */plugins/*)
 typeset -U config_files
 config_files=($DOT/**/*.zsh)
+config_files=(${config_files:#*/plugins/*})
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -33,3 +34,6 @@ do
 done
 
 unset config_files
+
+# source plugins
+source $DOT/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
