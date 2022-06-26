@@ -6,9 +6,8 @@ set -e
 
 cd "$(dirname $0)"/..
 
-info 'updating submodules'
+echo 'updating submodules'
 git submodule update --remote --merge
 
-
 # find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+find . -maxdepth 2 -name install.sh | while read installer ; do echo $installer; sh -c "${installer}" ; done
