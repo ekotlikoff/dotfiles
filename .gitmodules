@@ -1,6 +1,3 @@
-[submodule "vim/vim/pack/plugin/start/rust.vim"]
-	path = vim/vim.symlink/pack/plugin/start/rust.vim
-	url = https://github.com/rust-lang/rust.vim
 [submodule "vim/vim.symlink/pack/plugin/start/coc.nvim"]
 	path = vim/vim.symlink/pack/plugin/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
