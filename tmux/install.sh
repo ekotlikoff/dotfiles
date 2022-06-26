@@ -1,10 +1,8 @@
 #!/bin/sh
-#
-# tmux
 
 if test ! $(which tmux)
 then
-  echo "  Installing tmux for you."
+  echo "  installing tmux for you"
   brew install tmux
 fi
 

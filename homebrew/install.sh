@@ -5,7 +5,7 @@
 # Check for Homebrew
 if test ! $(which brew)
 then
-  echo "  Installing Homebrew for you."
+  echo "  installing Homebrew for you"
 
   # Install the correct homebrew for each OS type
   if test "$(uname)" = "Darwin"
