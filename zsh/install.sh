@@ -1,7 +1,11 @@
 #!/bin/bash
 
-if test ! $(which tldr)
-then
-  echo "  installing tldr for you"
-  brew install tldr
-fi
+tools="tldr fzf"
+for tool in $tools; do
+  echo "  checking $tool"
+  if test ! $(which $tool)
+  then
+    echo "  installing $tool for you"
+    brew install "$tool"
+  fi
+done

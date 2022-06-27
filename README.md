@@ -15,6 +15,7 @@ This repo configures the below components for a nice developer setup. It is curr
     - [vim-speeddating](https://github.com/tpope/vim-speeddating) for improved increment/decrement `C-S` and `C-X`, C-S is [configured](vim/vim.symlink/plugin/speeddating.vim) instead of the default C-A because that is the chosen tmux prefix here
     - [vim-repeat](https://github.com/tpope/vim-repeat) to nicely support `.` with vim-surround and vim-speeddating commands
     - [vim-highlightedyank](https://github.com/machakann/vim-highlightedyank) to give a visual indicator for yanked text
+    - [fzf](https://github.com/junegunn/fzf) and [fzf.vim](https://github.com/junegunn/fzf.vim) for fuzzy finding
 - Tmux terminal multiplexer
   - This is [configured](tmux/config/vim.conf) to be vim-like in its mappings
 - ZSH configs
