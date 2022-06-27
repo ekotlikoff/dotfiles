@@ -5,4 +5,4 @@ unbind-key C-b
 bind-key C-a last-window
 bind-key r source-file ~/.tmux.conf\; display-message '.tmux.conf reloaded'
 
-source-file $DOT/tmux/config/*
+source-file $HOME/.dotfiles/tmux/config/*
