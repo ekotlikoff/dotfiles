@@ -38,3 +38,9 @@
 [submodule "vim/vim.symlink/pack/plugin/start/fzf"]
 	path = vim/vim.symlink/pack/plugin/start/fzf
 	url = https://github.com/junegunn/fzf
+[submodule "vim/vim.symlink/pack/plugin/start/vim-unimpaired"]
+	path = vim/vim.symlink/pack/plugin/start/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "vim/vim.symlink/pack/plugin/start/vim-sleuth"]
+	path = vim/vim.symlink/pack/plugin/start/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth

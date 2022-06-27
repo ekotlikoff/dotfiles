@@ -9,6 +9,7 @@ filetype plugin indent on
 " General options
 let mapleader = ","
 set smartcase
+set smarttab
 set ignorecase
 set showmatch
 set scrolloff=10 " Guaranteed context lines
@@ -48,16 +49,6 @@ augroup templates
   autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh | normal G
   autocmd BufNewFile *.py 0r ~/.vim/templates/skeleton.py | normal G
 augroup END
-
-" Tabs
-set expandtab
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
-set shiftround
-set smarttab
-set autoindent
-set smartindent
 
 " Put these in an autocmd group, so that you can revert them with:
 " ":augroup vimStartup | au! | augroup END"
