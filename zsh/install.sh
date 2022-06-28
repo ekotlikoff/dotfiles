@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tools="tldr fzf"
+tools="tldr fzf ripgrep"
 for tool in $tools; do
   if test ! $(which $tool)
   then
