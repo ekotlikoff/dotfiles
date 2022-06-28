@@ -1,2 +1,2 @@
+alias 'g'=git
 alias '?'=duck
-alias ls='ls -G'
