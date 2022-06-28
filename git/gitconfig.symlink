@@ -5,12 +5,13 @@
         excludesfile = ~/.gitignore
         editor = vim
 [alias]
-        p = push
         a = add
+        d = diff
+        p = push
         s = status -sb
+        cm = commit -m
         ll = log --graph --abbrev-commit --pretty=format:'%C(yellow)%h%Creset %an: %s%Creset%C(red)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
         last = log -1 HEAD --stat
-        cm = commit -m
         # Show diff btw two commits e.g. git dv 33559c5 ca1494d file1
         dv = difftool -t vimdiff -y
         # Search commits for changed code
