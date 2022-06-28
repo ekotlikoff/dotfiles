@@ -8,6 +8,7 @@
         a = add
         d = diff
         p = push
+        c = commit
         s = status -sb
         cm = commit -m
         ll = log --graph --abbrev-commit --pretty=format:'%C(yellow)%h%Creset %an: %s%Creset%C(red)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
