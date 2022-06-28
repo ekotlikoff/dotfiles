@@ -28,6 +28,9 @@ done
 autoload -U compinit
 compinit
 
+# unset ^[/ (after compinit sets it) to allow for quickly using ^[ to exit insert mode and / to reverse history search
+bindkey -M viins -r "^[/"
+
 for file in ${(M)config_files:#*/completion.zsh}
 do
   source $file
