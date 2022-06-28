@@ -9,7 +9,7 @@ filetype plugin indent on
 " General options
 let mapleader = ","
 set smartcase
-set smarttab
+set smartindent
 set ignorecase
 set showmatch
 set scrolloff=10 " Guaranteed context lines
