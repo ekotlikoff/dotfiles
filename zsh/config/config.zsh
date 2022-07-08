@@ -18,5 +18,3 @@ setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt complete_aliases
 
 bindkey -v # vi mode
-# Bind / to reverse search
-bindkey -M vicmd '/' vi-history-search-backward
