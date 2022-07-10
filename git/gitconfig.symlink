@@ -17,6 +17,7 @@
         dv = difftool -t vimdiff -y
         # Search commits for changed code
         se = !git rev-list --all | xargs git grep -F
+        clone-for-worktrees = "!sh clone-bare-for-worktrees"
 [mergetool]
         keepBackup = false
 [difftool]

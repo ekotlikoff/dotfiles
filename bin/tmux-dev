@@ -7,7 +7,7 @@
 set -- $(stty size) # $1 = rows $2 = columns
 
 if tmux -2 new-session -d -s 'dev' -x "$2" -y "$(($1 - 1))"; then
-  # If session did not exist, then configure it, otherwise attach.
+  # If session did not exist, then configure it, otherwise just attach.
   tmux split-window -t dev -hb
   tmux select-pane -t 'dev:0.1'
   tmux split-window -t dev -v
