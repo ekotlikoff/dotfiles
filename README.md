@@ -18,6 +18,7 @@ This repo configures the below components for a nice developer setup. It is curr
     - [vim-unimpaired](https://github.com/tpope/vim-unimpaired) for various handy binds like `[f`, `[x`, `[e`, `[ ` etc
     - [vim-repeat](https://github.com/tpope/vim-repeat) to nicely support `.` with vim-surround, vim-speeddating, vim-unimpaired commands
     - [vim-highlightedyank](https://github.com/machakann/vim-highlightedyank) to give a visual indicator for yanked text
+    - [splitjoin.vim](https://github.com/AndrewRadev/splitjoin.vim) for `gS` and `gJ`
 - Tmux terminal multiplexer
   - This is [configured](tmux/config/vim.conf) to be vim-like in its mappings
 - ZSH shell
