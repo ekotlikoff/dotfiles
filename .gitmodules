@@ -44,3 +44,9 @@
 [submodule "vim/vim.symlink/pack/plugin/start/vim-sleuth"]
 	path = vim/vim.symlink/pack/plugin/start/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "vim/vim.symlink/pack/plugin/start/splitjoin.vim"]
+	path = vim/vim.symlink/pack/plugin/start/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim
+[submodule "vim/vim.symlink/pack/plugin/start/vim-go"]
+	path = vim/vim.symlink/pack/plugin/start/vim-go
+	url = https://github.com/fatih/vim-go.git
