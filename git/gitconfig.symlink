@@ -7,6 +7,7 @@
 [alias]
         a = add
         d = diff
+        r = reset
         p = push
         c = commit
         s = status -sb
