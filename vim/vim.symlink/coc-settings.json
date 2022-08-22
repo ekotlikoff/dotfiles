@@ -14,5 +14,7 @@
   },
   "go.goplsOptions": {
     "completeUnimported": true
-  }
+  },
+  "java.home": "/usr/local/opt/openjdk",
+  "java.format.enabled": true
 }
