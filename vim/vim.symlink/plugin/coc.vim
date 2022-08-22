@@ -8,7 +8,7 @@ nmap <leader>r <Plug>(coc-refactor)
 nmap <leader>a <Plug>(coc-codeaction)
 
 " Make <CR> auto-select the first completion item and format
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <silent><expr> <TAB>
