@@ -142,7 +142,7 @@ setup_gitconfig
 install_dotfiles
 
 info "setting macOS defaults"
-$DOT/macos/set-defaults.sh
+$DOT/macos/setdefaults
 
 info "installing brew"
 $DOT/homebrew/install 2>&1

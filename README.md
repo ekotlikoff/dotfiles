@@ -28,7 +28,7 @@ This repo configures the below components for a nice developer setup. It is curr
   - [fzf](https://github.com/junegunn/fzf) for `/` history search, `**` + `^F` file search, and `^R` ripgrep search
   - [glow](https://github.com/charmbracelet/glow) to render markdown, e.g. `glow README.md`
 - [Git configs](git/gitconfig.symlink)
-- Some [macOS defaults](macos/set-defaults.sh)
+- Some [macOS defaults](macos/setdefaults)
 
 ### Special files
 
