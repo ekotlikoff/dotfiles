@@ -43,3 +43,5 @@ This repo configures the below components for a nice developer setup. It is curr
 
 1. Clone the repo `git clone https://github.com/ekotlikoff/dotfiles.git $HOME/.dotfiles`
 1. `~/.dotfiles/bin/dot`
+
+Credit to https://github.com/holman/dotfiles for the structure
