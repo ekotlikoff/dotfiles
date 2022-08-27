@@ -33,7 +33,7 @@ This repo configures the below components for a nice developer setup. It is curr
 ### Special files
 
 - **bin/** Anything in bin/ will get added to your $PATH
-- **topic/install.sh** Any file named install.sh is executed when you run `bin/dot`
+- **topic/install** Any file named install is executed when you run `bin/dot`
 - **topic/\*.symlink** Any file ending in .symlink gets symlinked into your $HOME
 - **topic/path.zsh**: Any file named path.zsh is loaded first via [zsh.rc](zsh/zshrc.symlink) and is expected to setup $PATH or similar, e.g. [path.zsh](system/path.zsh)
 - **topic/\*.zsh** Any files ending in .zsh get loaded into your zsh environment, e.g. [aliases.zsh](zsh/config/aliases.zsh) or [env.zsh](system/env.zsh)
