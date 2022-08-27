@@ -4,7 +4,6 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 
-
 if [ -f "$HOME/.cargo/env" ]
 then
   source "$HOME/.cargo/env"
