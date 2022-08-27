@@ -30,9 +30,16 @@ This repo configures the below components for a nice developer setup. It is curr
 - [Git configs](git/gitconfig.symlink)
 - Some [macOS defaults](macos/set-defaults.sh)
 
+### Special files
+
+- **bin/** Anything in bin/ will get added to your $PATH
+- **topic/install.sh** Any file named install.sh is executed when you run `bin/dot`
+- **topic/\*.symlink** Any file ending in .symlink gets symlinked into your $HOME
+- **topic/path.zsh**: Any file named path.zsh is loaded first via [zsh.rc](zsh/zshrc.symlink) and is expected to setup $PATH or similar, e.g. [path.zsh](system/path.zsh)
+- **topic/\*.zsh** Any files ending in .zsh get loaded into your zsh environment, e.g. [aliases.zsh](zsh/config/aliases.zsh) or [env.zsh](system/env.zsh)
+- **topic/completion.zsh** Any file named completion.zsh is loaded last and is expected to setup autocomplete, e.g. [completion.zsh](zsh/config/completion.zsh)
+
 ### Installation
 
 1. Clone the repo `git clone https://github.com/ekotlikoff/dotfiles.git $HOME/.dotfiles`
-1. `~/.dotfiles/script/bootstrap`
-
-#### Credits to https://github.com/holman/dotfiles for the dotfiles design
+1. `~/.dotfiles/bin/dot`
