@@ -1,7 +1,12 @@
 #!/bin/zsh
 
 if [ -d .git ]; then
-  /usr/bin/open "$(git remote get-url --all origin)"
+  url=$(git remote get-url --all origin | sed 's/\.git$//')
+  if (( $#@ )); then
+    /usr/bin/open "$url/blob/main/$@"
+  else 
+    /usr/bin/open $url
+  fi
   exit
 fi
 
