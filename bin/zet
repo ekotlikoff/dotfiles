@@ -1,0 +1,79 @@
+#!/bin/zsh
+
+local zet_dir="$HOME/zet/"
+
+local flag_help flag_list flag_open arg_edit
+local usage=(
+	'zet [-h|--help]'
+	'zet [-l|--list] [search_string...]'
+	'zet [-o|--open]'
+	'zet [-e|--edit] <last|search_string...>'
+	'zet [screenshot]'
+)
+
+zmodload zsh/zutil
+zparseopts -D -F -K -- \
+	{h,-help}=flag_help \
+	{l,-list}=flag_list \
+	{o,-open}=flag_open \
+	{e,-edit}:=arg_edit ||
+	return 1
+
+[[ -z "$flag_help" ]] || { print -l $usage && return }
+
+if ! [[ -d "$zet_dir" ]]; then
+	echo 'where is your zet repo?'
+	exit 1
+fi
+
+if [[ $flag_list ]]; then
+	local search_string="$@[-1]"
+	if [[ -z "$search_string" ]]; then
+		cd $zet_dir
+		ls -1rt
+	else
+		cd $zet_dir
+		ls -rt | xargs grep -rl "$search_string" | sed 's/\/.*//'
+	fi
+
+elif [[ $flag_open ]]; then
+	# TODO zet open $zettitle - should open to its github page
+
+elif (( $#arg_edit )); then
+	edit_arg=$arg_edit[-1]
+	if [[ $edit_arg == 'last' ]]; then
+		cd $zet_dir
+		most_recent=$(ls -t | head -1)
+		cd $most_recent
+		${EDITOR:-vi} README.md
+	else
+		cd $zet_dir
+		most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
+		cd $most_recent_match
+		${EDITOR:-vi} README.md
+	fi
+
+else
+	# New zet
+	local dir="$zer_dir/$(date +'%m%d%Y%I%M%S')"
+	if [[ -d $dir ]]; then
+		echo 'zet already exists'
+		exit 1
+	fi
+	mkdir "$dir"
+	if [[ "$@" == screenshot ]]; then
+		# TODO zet screenshot
+		# TODO Instruct user to take a screenshot to ~/Pictures/
+		# TODO take latest picture there, add it to zet
+		# TODO write README.md template with link to picture
+		echo 'zet screenshot'
+		exit
+	fi
+	${EDITOR:-vi} "$dir/README.md"
+
+	if read -q 'choice?Press Y/y to commit'; then
+		cd "$zet_dir"
+		# TODO get commit title from first line of the zet (after the #)
+		# TODO commit the zet
+	fi
+fi
