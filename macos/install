@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Vim
+
+set -e
+
+if ! [ -e "/Applications/LastPass.app" ]; then
+	echo '  installing lastpass for you'
+	brew install lastpass
+	echo '  TODO - go manually enable the extension in safari'
+fi
