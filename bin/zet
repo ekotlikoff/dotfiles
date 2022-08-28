@@ -2,11 +2,11 @@
 
 local zet_dir="$HOME/zet/"
 
-local flag_help flag_list flag_open arg_edit
+local flag_help flag_list arg_open arg_edit
 local usage=(
 	'zet [-h|--help]'
 	'zet [-l|--list] [search_string...]'
-	'zet [-o|--open]'
+	'zet [-o|--open] [last|zet...]'
 	'zet [-e|--edit] <last|search_string...>'
 	'zet [screenshot]'
 )
@@ -15,7 +15,7 @@ zmodload zsh/zutil
 zparseopts -D -F -K -- \
 	{h,-help}=flag_help \
 	{l,-list}=flag_list \
-	{o,-open}=flag_open \
+	{o,-open}:=arg_open \
 	{e,-edit}:=arg_edit ||
 	return 1
 
@@ -26,28 +26,32 @@ if ! [[ -d "$zet_dir" ]]; then
 	exit 1
 fi
 
+cd $zet_dir
+
 if [[ $flag_list ]]; then
 	local search_string="$@[-1]"
 	if [[ -z "$search_string" ]]; then
-		cd $zet_dir
 		ls -1rt
 	else
-		cd $zet_dir
 		ls -rt | xargs grep -rl "$search_string" | sed 's/\/.*//'
 	fi
 
-elif [[ $flag_open ]]; then
-	# TODO zet open $zettitle - should open to its github page
+elif [[ $#arg_open ]]; then
+	open_arg=$arg_open[-1]
+	if [[ $open_arg == 'last' ]]; then
+		most_recent=$(ls -t | head -1)
+		o "$most_recent"
+	else
+		o "$open_arg"
+	fi
 
 elif (( $#arg_edit )); then
 	edit_arg=$arg_edit[-1]
 	if [[ $edit_arg == 'last' ]]; then
-		cd $zet_dir
 		most_recent=$(ls -t | head -1)
 		cd $most_recent
 		${EDITOR:-vi} README.md
 	else
-		cd $zet_dir
 		most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
 		cd $most_recent_match
 		${EDITOR:-vi} README.md
