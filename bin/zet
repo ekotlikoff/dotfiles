@@ -36,7 +36,7 @@ if [[ $flag_list ]]; then
 		ls -rt | xargs grep -rl "$search_string" | sed 's/\/.*//'
 	fi
 
-elif [[ $#arg_open ]]; then
+elif (( $#arg_open )); then
 	open_arg=$arg_open[-1]
 	if [[ $open_arg == 'last' ]]; then
 		most_recent=$(ls -t | head -1)
@@ -75,7 +75,7 @@ else
 	fi
 	${EDITOR:-vi} "$dir/README.md"
 
-	if read -q 'choice?Press Y/y to commit'; then
+	if read -q 'choice?Commit?'; then
 		cd "$zet_dir"
 		# TODO get commit title from first line of the zet (after the #)
 		# TODO commit the zet
