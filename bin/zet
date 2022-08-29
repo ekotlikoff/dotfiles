@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 local zet_dir="$HOME/zet/"
+local zet_skeleton="# \n\n\t#"
 
 local flag_help flag_list arg_open arg_edit
 local usage=(
@@ -73,7 +74,8 @@ else
 		echo 'zet screenshot'
 		exit
 	fi
-	${EDITOR:-vi} "$dir/README.md"
+	echo "$zet_skeleton" > "$dir/README.md"
+	${EDITOR:-vi} -c 'startinsert!' "$dir/README.md"
 
 	if read -q 'choice?Commit? '; then
 		if [[ -n $(git diff --name-only --cached) ]]; then
