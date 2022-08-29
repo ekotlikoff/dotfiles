@@ -27,9 +27,25 @@ if ! [[ -d "$zet_dir" ]]; then
 	exit 1
 fi
 
+function commit() {
+	# Takes zet directory, prompts user then sets commit message based on zet title and pushes
+	local dir="$@"
+	if read -q 'choice?Commit? '; then
+		if [[ -n $(git diff --name-only --cached) ]]; then
+			echo 'cannot commit, there are already staged files'
+			exit 1
+		fi
+		commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
+		git add "$dir"
+		git commit -m "$commit_title"
+		git push
+	fi
+}
+
 cd $zet_dir
 
 if [[ $flag_list ]]; then
+	# TODO list should include the title of each zet in the second column
 	local search_string="$@[-1]"
 	if [[ -z "$search_string" ]]; then
 		ls -1rt
@@ -48,16 +64,23 @@ elif (( $#arg_open )); then
 
 elif (( $#arg_edit )); then
 	edit_arg=$arg_edit[-1]
+	local dir=''
 	if [[ $edit_arg == 'last' ]]; then
-		most_recent=$(ls -t | head -1)
+		local most_recent=$(ls -t | head -1)
 		cd $most_recent
 		${EDITOR:-vi} README.md
+		dir="$zet_dir/$most_recent"
 	else
-		most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
+		local most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
 		cd $most_recent_match
 		${EDITOR:-vi} README.md
+		dir="$zet_dir/$most_recent_match"
 	fi
+	commit "$dir"
 
+elif (( $#@ )); then
+	echo "unexpected arg $@"
+	exit 1
 else
 	# New zet
 	local dir="$zet_dir/$(date +'%m%d%Y%I%M%S')"
@@ -76,15 +99,5 @@ else
 	fi
 	echo "$zet_skeleton" > "$dir/README.md"
 	${EDITOR:-vi} -c 'startinsert!' "$dir/README.md"
-
-	if read -q 'choice?Commit? '; then
-		if [[ -n $(git diff --name-only --cached) ]]; then
-			echo 'cannot commit, there are already staged files'
-			exit 1
-		fi
-		commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
-		git add "$dir"
-		git commit -m "$commit_title"
-		git push
-	fi
+	commit "$dir"
 fi
