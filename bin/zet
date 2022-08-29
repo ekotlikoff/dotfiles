@@ -45,12 +45,12 @@ function commit() {
 cd $zet_dir
 
 if [[ $flag_list ]]; then
-	# TODO list should include the title of each zet in the second column
+	local max_zets_to_list=20
 	local search_string="$@[-1]"
 	if [[ -z "$search_string" ]]; then
-		ls -1rt
+		ls -1rt | tail "-$max_zets_to_list" | xargs -I{} zsh -c 'title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"'
 	else
-		ls -rt | xargs grep -rl "$search_string" | sed 's/\/.*//'
+		ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
 	fi
 
 elif (( $#arg_open )); then
