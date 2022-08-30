@@ -3,7 +3,7 @@
 local zet_dir="$HOME/zet/"
 local zet_skeleton="# \n\n\t#"
 
-local flag_help flag_list arg_open arg_edit
+local flag_help flag_list arg_open flag_edit
 local usage=(
 	'zet [-h|--help]'
 	'zet [-l|--list] [search_string...]'
@@ -17,7 +17,7 @@ zparseopts -D -F -K -- \
 	{h,-help}=flag_help \
 	{l,-list}=flag_list \
 	{o,-open}:=arg_open \
-	{e,-edit}:=arg_edit ||
+	{e,-edit}=flag_edit ||
 	return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
@@ -28,16 +28,27 @@ if ! [[ -d "$zet_dir" ]]; then
 fi
 
 function commit() {
-	# Takes zet directory, prompts user then sets commit message based on zet title and pushes
-	local dir="$@"
+	if [[ -z "$@" ]]; then
+		echo 'commit requires arg'
+		exit 1
+	fi
+	# Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
 	if read -q 'choice?Commit? '; then
 		if [[ -n $(git diff --name-only --cached) ]]; then
 			echo 'cannot commit, there are already staged files'
 			exit 1
 		fi
-		commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
-		git add "$dir"
-		git commit -m "$commit_title"
+		local count=0 commit_title
+		for dir (${(f)@}); do
+			count=$((count+1))
+			commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
+			git add "$dir"
+		done
+		if (( $count > 1 )); then
+			git commit
+		else
+			git commit -m "$commit_title"
+		fi
 		git push
 	fi
 }
@@ -45,12 +56,27 @@ function commit() {
 cd $zet_dir
 
 if [[ $flag_list ]]; then
-	local max_zets_to_list=20
+	local max_zets_to_list=20 is_terminal
 	local search_string="$@[-1]"
 	if [[ -z "$search_string" ]]; then
-		ls -1rt | tail "-$max_zets_to_list" | xargs -I{} zsh -c 'title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"'
+		if [[ $flag_edit ]]; then
+			local directories=$(ls -1r | tail "-$max_zets_to_list")
+			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
+			vim $(echo $files)
+			commit $directories
+		else
+			ls -1rt | tail "-$max_zets_to_list" |
+				xargs -I{} zsh -c 'title="$(head -n 1 {}/README.md | sed "s/\# //")"; printf "%b\n" "\033[1m{}\033[0m\t$title"'
+		fi
 	else
-		ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
+		if [[ $flag_edit ]]; then
+			local directories=$(ls -1r | xargs grep -rl "$search_string" | sed 's/\/.*//' | tail "-$max_zets_to_list")
+			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
+			vim $(echo $files)
+			commit $directories
+		else
+			ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
+		fi
 	fi
 
 elif (( $#arg_open )); then
@@ -62,8 +88,9 @@ elif (( $#arg_open )); then
 		o "$open_arg"
 	fi
 
-elif (( $#arg_edit )); then
-	edit_arg=$arg_edit[-1]
+elif [[ $flag_edit ]]; then
+	echo "EDITING"
+	local edit_arg="$@[-1]"
 	local dir=''
 	if [[ $edit_arg == 'last' ]]; then
 		local most_recent=$(ls -t | head -1)
