@@ -70,7 +70,7 @@ if [[ $flag_list ]]; then
 		fi
 	else
 		if [[ $flag_edit ]]; then
-			local directories=$(ls -1r | xargs grep -rl "$search_string" | sed 's/\/.*//' | tail "-$max_zets_to_list")
+			local directories=$(ls -1t | xargs grep -rl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
 			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
 			vim $(echo $files)
 			commit $directories
@@ -89,7 +89,6 @@ elif (( $#arg_open )); then
 	fi
 
 elif [[ $flag_edit ]]; then
-	echo "EDITING"
 	local edit_arg="$@[-1]"
 	local dir=''
 	if [[ $edit_arg == 'last' ]]; then
