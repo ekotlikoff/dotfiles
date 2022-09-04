@@ -60,7 +60,7 @@ if [[ $flag_list ]]; then
 	local search_string="$@[-1]"
 	if [[ -z "$search_string" ]]; then
 		if [[ $flag_edit ]]; then
-			local directories=$(ls -1r | tail "-$max_zets_to_list")
+			local directories=$(ls -1t | head "-$max_zets_to_list")
 			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
 			vim $(echo $files)
 			commit $directories
