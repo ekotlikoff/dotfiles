@@ -32,6 +32,9 @@ function commit() {
 		echo 'commit requires arg'
 		exit 1
 	fi
+	if ! [[ -n $(git diff --name-only) ]]; then
+		return
+	fi
 	# Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
 	if read -q 'choice?Commit? '; then
 		if [[ -n $(git diff --name-only --cached) ]]; then
