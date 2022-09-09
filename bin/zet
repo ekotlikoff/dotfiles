@@ -32,7 +32,7 @@ function commit() {
 		echo 'commit requires arg'
 		exit 1
 	fi
-	if ! [[ -n $(git diff --name-only) ]]; then
+	if ! [[ -n $(git status --porcelain) ]]; then
 		return
 	fi
 	# Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
