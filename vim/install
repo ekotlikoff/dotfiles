@@ -13,8 +13,8 @@ if ! command -v node >/dev/null 2>&1; then
     fi
     eval $package_manager node
   else
-    sudo apt install npm
-    sudo npm install -g npm
+    sudo apt install -y npm
+    sudo npm install -y -g npm
   fi
 fi
 echo '  installing CoC extensions'
