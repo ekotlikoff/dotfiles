@@ -3,13 +3,12 @@
 local zet_dir="$HOME/zet/"
 local zet_skeleton="# \n\n\t#"
 
-local flag_help flag_list arg_open flag_edit flag_sync
+local flag_help flag_list arg_open flag_edit
 local usage=(
   'zet [-h|--help]'
   'zet [-l|--list] [search_string...]'
   'zet [-o|--open] [last|zet...]'
   'zet [-e|--edit] <last|search_string...>'
-  'zet [-s|--sync]'
   'zet [screenshot]'
 )
 
@@ -18,8 +17,7 @@ zparseopts -D -F -K -- \
   {h,-help}=flag_help \
   {l,-list}=flag_list \
   {o,-open}:=arg_open \
-  {e,-edit}=flag_edit \
-  {s,-sync}=flag_sync ||
+  {e,-edit}=flag_edit ||
   return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
@@ -59,10 +57,9 @@ function commit() {
 }
 
 cd $zet_dir
+git pull --quiet
 
-if [[ $flag_sync ]]; then
-  git pull
-elif [[ $flag_list ]]; then
+if [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
   local search_string="$@[-1]"
   local run_search='if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi;'
