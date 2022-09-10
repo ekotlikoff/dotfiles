@@ -1,3 +1,3 @@
 #!/bin/sh
 
-command -v tmux >/dev/null 2>&1 || { echo "  installing tmux for you"; brew install tmux; }
+command -v tmux >/dev/null 2>&1 || { echo '  installing tmux'; brew install tmux; }

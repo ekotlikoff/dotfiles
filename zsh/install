@@ -5,5 +5,5 @@ cmds=('tldr' 'fzf' 'rg' 'glow')
 for (( i = 1; i <= $#tools; i++ )) do
   tool=$tools[i]
   cmd=$cmds[i]
-  command -v "$cmd" >/dev/null 2>&1 || { echo "  installing $tool for you"; brew install "$tool"; }
+  command -v "$cmd" >/dev/null 2>&1 || { echo "  installing $tool"; brew install "$tool"; }
 done
