@@ -4,8 +4,18 @@
 
 set -e
 
+# Check for Homebrew
+if test ! $(which brew)
+then
+  echo '  installing Homebrew'
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo "  updating Homebrew"
+brew update >/dev/null
+
 if ! [ -e "/Applications/LastPass.app" ]; then
-	echo '  installing lastpass for you'
-	brew install lastpass
-	echo '  TODO - go manually enable the extension in safari'
+  echo '  installing lastpass'
+  brew install lastpass
+  echo '  TODO - go manually enable the extension in safari'
 fi

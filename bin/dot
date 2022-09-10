@@ -138,24 +138,24 @@ install_dotfiles () {
   done
 }
 
+setup_macos() {
+  [ "$(uname)" == "Darwin" ] || return
+  info "setting macOS defaults"
+  $DOT/macos/setdefaults
+  info "installing software for macOS"
+  $DOT/macos/install 2>&1
+}
+
 setup_gitconfig
 install_dotfiles
-
-info "setting macOS defaults"
-$DOT/macos/setdefaults
-
-info "installing brew"
-$DOT/homebrew/install 2>&1
-
-info "updating brew"
-brew update >/dev/null
+setup_macos
 
 info "updating submodules"
 git submodule --quiet update --remote --merge
 
 info "running installers"
 # find the installers and run them
-find . -maxdepth 2 -name install -not -path "./homebrew/*" |
+find . -maxdepth 2 -name install -not -path "./macos/*" |
   while read installer; do
     echo "  > running $installer"
     sh -c "${installer}"

@@ -2,13 +2,11 @@
 
 set -e
 
-[ "$(uname)" == "Darwin" ] || exit 0
-
 # Check for changes to this file before running (and closing applications)
 setDefaultsHashFile="$DOT/macos/.setdefaultshash"
 newChecksum=$(shasum $0)
 if [ -f "$setDefaultsHashFile" ] && [ "$newChecksum" = "$(cat $setDefaultsHashFile)" ]; then
-	exit 0
+  exit 0
 fi
 
 # credit to https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/ and https://github.com/mathiasbynens/dotfiles/blob/master/.macos
@@ -16,7 +14,7 @@ fi
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
-sudo -v
+sudo -v -p '  password: '
 
 # Keep-alive: update existing `sudo` time stamp until set-defaults has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -464,22 +462,22 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
 
 #### Kill affected applications
 for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"iCal"; do
-	killall "${app}" &> /dev/null || :
+  "Address Book" \
+  "Calendar" \
+  "cfprefsd" \
+  "Contacts" \
+  "Dock" \
+  "Finder" \
+  "Google Chrome Canary" \
+  "Google Chrome" \
+  "Mail" \
+  "Messages" \
+  "Photos" \
+  "Safari" \
+  "SystemUIServer" \
+  "iCal"; do
+  killall "${app}" &> /dev/null || :
 done
 
 echo "$newChecksum" > $setDefaultsHashFile
-echo "Finished setting defaults, these changes require a restart to take effect"
+echo "  finished setting defaults, these changes require a restart to take effect"
