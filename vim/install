@@ -9,7 +9,7 @@ if ! command -v node >/dev/null 2>&1; then
   if [ "$(uname -s)" == "Darwin" ]; then
     if [ "$DOT_TYPE" == "minimal" ]; then
       echo '  Please install node manually before continuing'
-      exit
+      exit 0
     fi
     eval $package_manager node
   else
