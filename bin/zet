@@ -65,6 +65,10 @@ if [[ $flag_sync ]]; then
 elif [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
   local search_string="$@[-1]"
+  local run_search='if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi;'
+  local title='title="$(head -n 1 {}/README.md | sed "s/\# //")";'
+  local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
+  local p='printf "%b\n" "\033[1m{}\033[0m\t$title - $tags"'
   if [[ -z "$search_string" ]]; then
     if [[ $flag_edit ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
@@ -73,16 +77,19 @@ elif [[ $flag_list ]]; then
       commit $directories
     else
       ls -1rt | tail "-$max_zets_to_list" |
-        xargs -I{} zsh -c 'title="$(head -n 1 {}/README.md | sed "s/\# //")"; printf "%b\n" "\033[1m{}\033[0m\t$title"'
+        xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
   else
     if [[ $flag_edit ]]; then
       local directories=$(ls -1t | xargs grep -rl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
+      if [[ -z $directories ]]; then
+        exit 0
+      fi
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       vim $(echo $files)
       commit $directories
     else
-      ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
+      ls -rt | xargs -I{} zsh -c "${run_search} ${title} ${tags} ${p}" _ "$search_string" | tail "-$max_zets_to_list"
     fi
   fi
 
