@@ -19,14 +19,14 @@ do
   source $file
 done
 
+autoload -U compinit
+compinit
+
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
   source $file
 done
-
-autoload -U compinit
-compinit
 
 # unset ^[/ (after compinit sets it) to allow for quickly using ^[ to exit insert mode and / to reverse history search
 bindkey -M viins -r "^[/"
