@@ -2,7 +2,10 @@
 # ---------
 #
 # Taken from fzf/shell/key-bindings.zsh and modified slightly (removed unwanted bindings and altered keys)
-#
+if ! command -v fzf >/dev/null 2>&1; then
+  exit 0
+fi
+
 if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
 fi
