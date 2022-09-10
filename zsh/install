@@ -1,9 +1,16 @@
-#!/bin/zsh
+#!/bin/bash
 
-tools=('tldr' 'fzf' 'ripgrep' 'glow')
-cmds=('tldr' 'fzf' 'rg' 'glow')
-for (( i = 1; i <= $#tools; i++ )) do
-  tool=$tools[i]
-  cmd=$cmds[i]
+if [ "$DOT_TYPE" == "full" ]; then
+  declare -a tools=('tldr' 'glow' 'fzf' 'ripgrep')
+  declare -a cmds=('tldr' 'glow' 'fzf' 'rg')
+else
+  declare -a tools=('fzf' 'ripgrep')
+  declare -a cmds=('fzf' 'rg')
+fi
+
+arraylength=${#tools[@]}
+for (( i = 0; i < $arraylength; i++ )) do
+  tool="${tools[i]}"
+  cmd="${cmds[i]}"
   command -v "$cmd" >/dev/null 2>&1 || { echo "  installing $tool"; eval $package_manager "$tool"; }
 done

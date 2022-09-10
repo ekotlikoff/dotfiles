@@ -1,5 +1,5 @@
 #!/bin/sh
 
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$(uname -s)" == "Darwin" ] && [ "$DOT_TYPE" == "full" ]; then
   command -v alacritty >/dev/null 2>&1 || { echo '  installing Alacritty'; eval $package_manager alacritty; }
 fi
