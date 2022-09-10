@@ -16,6 +16,6 @@ brew update >/dev/null
 
 if ! [ -e "/Applications/LastPass.app" ]; then
   echo '  installing lastpass'
-  brew install lastpass
+  eval $package_manager lastpass
   echo '  TODO - go manually enable the extension in safari'
 fi

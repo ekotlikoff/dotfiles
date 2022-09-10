@@ -4,7 +4,15 @@
 
 set -e
 
-command -v node >/dev/null 2>&1 || { echo '  installing node for CoC'; brew install node; }
+if ! command -v node >/dev/null 2>&1; then
+  echo '  installing node for CoC'
+  if [ "$(uname -s)" == "Darwin" ]; then
+    eval $package_manager node
+  else
+    sudo apt install npm
+    sudo npm install -g npm
+  fi
+fi
 echo '  installing CoC extensions'
 coc_extensions='coc-json coc-html coc-go coc-jedi coc-java'
 vim -esN +"CocInstall -sync $coc_extensions | q" +qall

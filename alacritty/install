@@ -1,3 +1,5 @@
 #!/bin/sh
 
-command -v alacritty >/dev/null 2>&1 || { echo '  installing Alacritty'; brew install alacritty; }
+if [ "$(uname -s)" == "Darwin" ]; then
+  command -v alacritty >/dev/null 2>&1 || { echo '  installing Alacritty'; eval $package_manager alacritty; }
+fi

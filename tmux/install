@@ -1,3 +1,5 @@
 #!/bin/sh
 
-command -v tmux >/dev/null 2>&1 || { echo '  installing tmux'; brew install tmux; }
+if [ "$(uname -s)" == "Darwin" ]; then
+  command -v tmux >/dev/null 2>&1 || { echo '  installing tmux'; eval $package_manager tmux; }
+fi

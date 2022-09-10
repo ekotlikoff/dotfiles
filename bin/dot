@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # dot sets up dotfile symlinks, configures various things, and installs dependencies
 
@@ -25,14 +25,21 @@ fail () {
   exit
 }
 
+identify_package_manager() {
+  if [ "$(uname -s)" == "Darwin" ]; then
+    export package_manager="brew install"
+  else
+    export package_manager="sudo apt install"
+  fi
+}
+
 setup_gitconfig () {
   if ! [ -f git/gitconfig.local.symlink ]
   then
     info 'setup gitconfig'
 
     git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
+    if [ "$(uname -s)" == "Darwin" ]; then
       git_credential='osxkeychain'
     fi
 
@@ -139,13 +146,14 @@ install_dotfiles () {
 }
 
 setup_macos() {
-  [ "$(uname)" == "Darwin" ] || return
+  [ "$(uname -s)" == "Darwin" ] || return
   info "setting macOS defaults"
   $DOT/macos/setdefaults
   info "installing software for macOS"
   $DOT/macos/install 2>&1
 }
 
+identify_package_manager
 setup_gitconfig
 install_dotfiles
 setup_macos
