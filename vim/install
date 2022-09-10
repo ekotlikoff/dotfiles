@@ -7,6 +7,10 @@ set -e
 if ! command -v node >/dev/null 2>&1; then
   echo '  installing node for CoC'
   if [ "$(uname -s)" == "Darwin" ]; then
+    if [ "$DOT_TYPE" == "minimal" ]; then
+      echo '  Please install node manually before continuing'
+      exit
+    fi
     eval $package_manager node
   else
     sudo apt install npm

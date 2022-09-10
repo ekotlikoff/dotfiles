@@ -3,9 +3,6 @@
 if [ "$DOT_TYPE" == "full" ]; then
   declare -a tools=('tldr' 'glow' 'fzf' 'ripgrep')
   declare -a cmds=('tldr' 'glow' 'fzf' 'rg')
-else
-  declare -a tools=('fzf' 'ripgrep')
-  declare -a cmds=('fzf' 'rg')
 fi
 
 arraylength=${#tools[@]}

@@ -4,6 +4,8 @@
 
 set -e
 
+[ "$DOT_TYPE" == "full" ] || exit
+
 # Check for Homebrew
 if test ! $(which brew)
 then
@@ -14,7 +16,7 @@ fi
 echo "  updating Homebrew"
 brew update >/dev/null
 
-if ! [ -e "/Applications/LastPass.app" ] && [ "$DOT_TYPE" == "full" ]; then
+if ! [ -e "/Applications/LastPass.app" ]; then
   echo '  installing lastpass'
   eval $package_manager lastpass
   echo '  TODO - go manually enable the extension in safari'
