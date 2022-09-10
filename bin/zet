@@ -3,130 +3,134 @@
 local zet_dir="$HOME/zet/"
 local zet_skeleton="# \n\n\t#"
 
-local flag_help flag_list arg_open flag_edit
+local flag_help flag_list arg_open flag_edit flag_sync
 local usage=(
-	'zet [-h|--help]'
-	'zet [-l|--list] [search_string...]'
-	'zet [-o|--open] [last|zet...]'
-	'zet [-e|--edit] <last|search_string...>'
-	'zet [screenshot]'
+  'zet [-h|--help]'
+  'zet [-l|--list] [search_string...]'
+  'zet [-o|--open] [last|zet...]'
+  'zet [-e|--edit] <last|search_string...>'
+  'zet [-s|--sync]'
+  'zet [screenshot]'
 )
 
 zmodload zsh/zutil
 zparseopts -D -F -K -- \
-	{h,-help}=flag_help \
-	{l,-list}=flag_list \
-	{o,-open}:=arg_open \
-	{e,-edit}=flag_edit ||
-	return 1
+  {h,-help}=flag_help \
+  {l,-list}=flag_list \
+  {o,-open}:=arg_open \
+  {e,-edit}=flag_edit \
+  {s,-sync}=flag_sync ||
+  return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
 
 if ! [[ -d "$zet_dir" ]]; then
-	echo 'where is your zet repo?'
-	exit 1
+  echo 'where is your zet repo?'
+  exit 1
 fi
 
 function commit() {
-	if [[ -z "$@" ]]; then
-		echo 'commit requires arg'
-		exit 1
-	fi
-	if ! [[ -n $(git status --porcelain) ]]; then
-		return
-	fi
-	# Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
-	if read -q 'choice?Commit? '; then
-		if [[ -n $(git diff --name-only --cached) ]]; then
-			echo 'cannot commit, there are already staged files'
-			exit 1
-		fi
-		local commit_title
-		for dir (${(f)@}); do
-			commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
-			git add "$dir"
-		done
-		local count=$(git status --porcelain | wc -l)
-		if (( $count > 1 )); then
-			git commit
-		else
-			git commit -m "$commit_title"
-		fi
-		git push
-	fi
+  if [[ -z "$@" ]]; then
+    echo 'commit requires arg'
+    exit 1
+  fi
+  if ! [[ -n $(git status --porcelain) ]]; then
+    return
+  fi
+  # Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
+  if read -q 'choice?Commit? '; then
+    if [[ -n $(git diff --name-only --cached) ]]; then
+      echo 'cannot commit, there are already staged files'
+      exit 1
+    fi
+    local commit_title
+    for dir (${(f)@}); do
+      commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
+      git add "$dir"
+    done
+    local count=$(git status --porcelain | wc -l)
+    if (( $count > 1 )); then
+      git commit
+    else
+      git commit -m "$commit_title"
+    fi
+    git push
+  fi
 }
 
 cd $zet_dir
 
-if [[ $flag_list ]]; then
-	local max_zets_to_list=20 is_terminal
-	local search_string="$@[-1]"
-	if [[ -z "$search_string" ]]; then
-		if [[ $flag_edit ]]; then
-			local directories=$(ls -1t | head "-$max_zets_to_list")
-			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
-			vim $(echo $files)
-			commit $directories
-		else
-			ls -1rt | tail "-$max_zets_to_list" |
-				xargs -I{} zsh -c 'title="$(head -n 1 {}/README.md | sed "s/\# //")"; printf "%b\n" "\033[1m{}\033[0m\t$title"'
-		fi
-	else
-		if [[ $flag_edit ]]; then
-			local directories=$(ls -1t | xargs grep -rl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
-			local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
-			vim $(echo $files)
-			commit $directories
-		else
-			ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
-		fi
-	fi
+if [[ $flag_sync ]]; then
+  git pull
+elif [[ $flag_list ]]; then
+  local max_zets_to_list=20 is_terminal
+  local search_string="$@[-1]"
+  if [[ -z "$search_string" ]]; then
+    if [[ $flag_edit ]]; then
+      local directories=$(ls -1t | head "-$max_zets_to_list")
+      local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
+      vim $(echo $files)
+      commit $directories
+    else
+      ls -1rt | tail "-$max_zets_to_list" |
+        xargs -I{} zsh -c 'title="$(head -n 1 {}/README.md | sed "s/\# //")"; printf "%b\n" "\033[1m{}\033[0m\t$title"'
+    fi
+  else
+    if [[ $flag_edit ]]; then
+      local directories=$(ls -1t | xargs grep -rl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
+      local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
+      vim $(echo $files)
+      commit $directories
+    else
+      ls -rt | xargs -I{} zsh -c 'if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi; title=$(head -n 1 {}/README.md | sed "s/\# //"); printf "%b\n" "\033[1m{}\033[0m\t$title"' _ "$search_string" | tail "-$max_zets_to_list"
+    fi
+  fi
 
 elif (( $#arg_open )); then
-	open_arg=$arg_open[-1]
-	if [[ $open_arg == 'last' ]]; then
-		most_recent=$(ls -t | head -1)
-		o "$most_recent"
-	else
-		o "$open_arg"
-	fi
+  open_arg=$arg_open[-1]
+  if [[ $open_arg == 'last' ]]; then
+    most_recent=$(ls -t | head -1)
+    o "$most_recent"
+  else
+    o "$open_arg"
+  fi
 
 elif [[ $flag_edit ]]; then
-	local edit_arg="$@[-1]"
-	local dir=''
-	if [[ $edit_arg == 'last' ]]; then
-		local most_recent=$(ls -t | head -1)
-		cd $most_recent
-		${EDITOR:-vi} README.md
-		dir="$zet_dir/$most_recent"
-	else
-		local most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
-		cd $most_recent_match
-		${EDITOR:-vi} README.md
-		dir="$zet_dir/$most_recent_match"
-	fi
-	commit "$dir"
+  local edit_arg="$@[-1]"
+  local dir=''
+  if [[ $edit_arg == 'last' ]]; then
+    local most_recent=$(ls -t | head -1)
+    cd $most_recent
+    ${EDITOR:-vi} README.md
+    dir="$zet_dir/$most_recent"
+  else
+    local most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
+    cd $most_recent_match
+    ${EDITOR:-vi} README.md
+    dir="$zet_dir/$most_recent_match"
+  fi
+  commit "$dir"
 
 elif (( $#@ )); then
-	echo "unexpected arg $@"
-	exit 1
+  echo "unexpected arg $@"
+  exit 1
 else
-	# New zet
-	local dir="$zet_dir/$(date +'%m%d%Y%I%M%S')"
-	if [[ -d $dir ]]; then
-		echo 'zet already exists'
-		exit 1
-	fi
-	mkdir "$dir"
-	if [[ "$@" == screenshot ]]; then
-		# TODO zet screenshot
-		# TODO Instruct user to take a screenshot to ~/Pictures/
-		# TODO take latest picture there, add it to zet
-		# TODO write README.md template with link to picture
-		echo 'zet screenshot'
-		exit
-	fi
-	echo "$zet_skeleton" > "$dir/README.md"
-	${EDITOR:-vi} -c 'startinsert!' "$dir/README.md"
-	commit "$dir"
+  # New zet
+  local dir="$zet_dir/$(date +'%m%d%Y%I%M%S')"
+  if [[ -d $dir ]]; then
+    echo 'zet already exists'
+    exit 1
+  fi
+  mkdir "$dir"
+  if [[ "$@" == screenshot ]]; then
+    # TODO zet screenshot
+    # TODO Instruct user to take a screenshot to ~/Pictures/
+    # TODO take latest picture there, add it to zet
+    # TODO write README.md template with link to picture
+    echo 'zet screenshot'
+    exit
+  fi
+  echo "$zet_skeleton" > "$dir/README.md"
+  ${EDITOR:-vi} -c 'startinsert!' "$dir/README.md"
+  commit "$dir"
 fi
