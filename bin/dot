@@ -160,7 +160,7 @@ install_dotfiles () {
 }
 
 setup_macos() {
-  [ "$(uname -s)" == "Darwin" ] || return
+  [ "$(uname -s)" == "Darwin" ] || return 0
   info "setting macOS defaults"
   $DOT/macos/setdefaults
   info "installing software for macOS"
