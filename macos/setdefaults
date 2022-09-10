@@ -2,6 +2,15 @@
 
 set -e
 
+[ "$(uname)" == "Darwin" ] || exit 0
+
+# Check for changes to this file before running (and closing applications)
+setDefaultsHashFile="$DOT/macos/.setdefaultshash"
+newChecksum=$(shasum $0)
+if [ -f "$setDefaultsHashFile" ] && [ "$newChecksum" = "$(cat $setDefaultsHashFile)" ]; then
+	exit 0
+fi
+
 # credit to https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/ and https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 osascript -e 'tell application "System Preferences" to quit'
@@ -454,7 +463,6 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 #### Kill affected applications
-
 for app in "Activity Monitor" \
 	"Address Book" \
 	"Calendar" \
@@ -472,4 +480,6 @@ for app in "Activity Monitor" \
 	"iCal"; do
 	killall "${app}" &> /dev/null || :
 done
+
+echo "$newChecksum" > $setDefaultsHashFile
 echo "Finished setting defaults, these changes require a restart to take effect"

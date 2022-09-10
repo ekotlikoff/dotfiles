@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# dot sets up dotfile symlinks, configures various things, and installs dependencies
 
 cd "$(dirname "$0")/.."
 export DOT=$HOME/.dotfiles
