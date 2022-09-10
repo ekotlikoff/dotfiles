@@ -102,7 +102,7 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 # Set machine sleep to 5 minutes on battery
 sudo pmset -b sleep 5
 
-filesize=$(stat -f %z /private/var/vm/sleepimage)
+filesize=$(stat -f %z /private/var/vm/sleepimage || echo 0)
 if (( $filesize > 0 )); then
 	# Remove the sleep image file to save disk space
 	sudo rm /private/var/vm/sleepimage
