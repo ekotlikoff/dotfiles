@@ -2,6 +2,8 @@
 
 local zet_dir="$HOME/zet/"
 local zet_skeleton="# \n\n\t#"
+local vim_cmd="vim --cmd 'cd $zet_dir'"
+local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 
 local flag_help flag_list arg_open flag_edit
 local usage=(
@@ -70,7 +72,7 @@ if [[ $flag_list ]]; then
     if [[ $flag_edit ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
-      vim $(echo $files)
+      zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
       ls -1rt | tail "-$max_zets_to_list" |
@@ -83,7 +85,7 @@ if [[ $flag_list ]]; then
         exit 0
       fi
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
-      vim $(echo $files)
+      zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
       ls -rt | xargs -I{} zsh -c "${run_search} ${title} ${tags} ${p}" _ "$search_string" | tail "-$max_zets_to_list"
@@ -105,12 +107,12 @@ elif [[ $flag_edit ]]; then
   if [[ $edit_arg == 'last' ]]; then
     local most_recent=$(ls -t | head -1)
     cd $most_recent
-    ${EDITOR:-vi} README.md
+    zsh -c "$vim_cmd README.md"
     dir="$zet_dir/$most_recent"
   else
     local most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
     cd $most_recent_match
-    ${EDITOR:-vi} README.md
+    zsh -c "$vim_cmd README.md"
     dir="$zet_dir/$most_recent_match"
   fi
   commit "$dir"
@@ -135,6 +137,6 @@ else
     exit
   fi
   echo "$zet_skeleton" > "$dir/README.md"
-  ${EDITOR:-vi} -c 'startinsert!' "$dir/README.md"
+  zsh -c "$vim_new_zet_cmd $dir/README.md"
   commit "$dir"
 fi
