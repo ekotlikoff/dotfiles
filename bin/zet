@@ -66,7 +66,7 @@ if [[ $flag_list ]]; then
   local search_string="$@[-1]"
   local title='title="$(head -n 1 {}/README.md | sed "s/\# //")";'
   local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
-  local p='printf "%b\n" "\033[1m{}\033[0m\t$title - $tags"'
+  local p='printf "  %s %-50b %s\n" "{}" "\033[1m$title\033[0m" "$tags"'
   if [[ -z "$search_string" ]]; then
     if [[ $flag_edit ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
