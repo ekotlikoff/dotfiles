@@ -61,7 +61,9 @@ function commit() {
 }
 
 cd $zet_dir
-git pull --quiet
+if [[ $flag_edit ]]; then
+  git pull --quiet
+fi
 
 if [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
