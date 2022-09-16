@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 local zet_dir="$HOME/zet/"
 local zet_skeleton="# \n\n\t#"
 local vim_cmd="vim --cmd 'cd $zet_dir'"
