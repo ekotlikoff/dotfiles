@@ -64,7 +64,6 @@ git pull --quiet
 if [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
   local search_string="$@[-1]"
-  local run_search='if [[ -z "$(grep -rl $1 {})" ]]; then exit; fi;'
   local title='title="$(head -n 1 {}/README.md | sed "s/\# //")";'
   local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
   local p='printf "%b\n" "\033[1m{}\033[0m\t$title - $tags"'
@@ -75,12 +74,12 @@ if [[ $flag_list ]]; then
       zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
-      ls -1rt | tail "-$max_zets_to_list" |
+      ls -1t | head "-$max_zets_to_list" |
         xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
   else
     if [[ $flag_edit ]]; then
-      local directories=$(ls -1t | xargs grep -rl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
+      local directories=$(ls -1t | xargs grep -irl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
       if [[ -z $directories ]]; then
         exit 0
       fi
@@ -88,7 +87,7 @@ if [[ $flag_list ]]; then
       zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
-      ls -rt | xargs -I{} zsh -c "${run_search} ${title} ${tags} ${p}" _ "$search_string" | tail "-$max_zets_to_list"
+      ls -1t | xargs grep -lr "$search_string" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}" | head "-$max_zets_to_list"
     fi
   fi
 
@@ -110,7 +109,7 @@ elif [[ $flag_edit ]]; then
     zsh -c "$vim_cmd README.md"
     dir="$zet_dir/$most_recent"
   else
-    local most_recent_match=$(ls -t | xargs grep -rl "$edit_arg" | sed 's/\/.*//' | head -1)
+    local most_recent_match=$(ls -t | xargs grep -irl "$edit_arg" | sed 's/\/.*//' | head -1)
     cd $most_recent_match
     zsh -c "$vim_cmd README.md"
     dir="$zet_dir/$most_recent_match"
