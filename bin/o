@@ -4,7 +4,7 @@ if [ -d .git ]; then
   url=$(git remote get-url --all origin | sed 's/\.git$//')
   if (( $#@ )); then
     /usr/bin/open "$url/blob/main/$@"
-  else 
+  else
     /usr/bin/open $url
   fi
   exit
