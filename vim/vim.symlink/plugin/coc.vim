@@ -31,7 +31,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 if ($DOT_TYPE == 'corp')
-  source $CORPDOT/vim.vim
+  source $CORPDOT/vim/config.vim
 else
   let g:coc_user_config = {
       \ "suggest.noselect": v:true,
