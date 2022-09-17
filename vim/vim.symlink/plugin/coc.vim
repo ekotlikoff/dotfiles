@@ -34,7 +34,7 @@ if ($DOT_TYPE == 'corp')
   source $CORPDOT/vim.vim
 else
   let g:coc_user_config = {
-      \ "suggest.noselect": "true",
+      \ "suggest.noselect": v:true,
       \ "coc.preferences.formatOnSaveFiletypes": [
       \   "go",
       \   "java",
@@ -52,6 +52,6 @@ else
       \   "completeUnimported": v:true
       \ },
       \ "java.home": "/usr/local/opt/openjdk",
-      \ "java.format.enabled": "true"
+      \ "java.format.enabled": v:true
       \}
 endif
