@@ -1,8 +1,7 @@
 export PATH="./bin:/usr/local/bin:/usr/local/sbin:$DOT/bin:$PATH"
 
-export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
-export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
+export PATH="$PATH:$GOPATH/bin"
 
 if [ -f "$HOME/.cargo/env" ]
 then
