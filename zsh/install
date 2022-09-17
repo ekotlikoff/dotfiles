@@ -3,6 +3,9 @@
 if [ "$DOT_TYPE" == "full" ]; then
   declare -a tools=('tldr' 'glow' 'fzf' 'ripgrep')
   declare -a cmds=('tldr' 'glow' 'fzf' 'rg')
+else
+  command -v fzf >/dev/null 2>&1 || { echo '  Please install fzf manually before continuing'; exit 1; }
+  command -v rg >/dev/null 2>&1 || { echo '  Please install rg manually before continuing'; exit 1; }
 fi
 
 arraylength=${#tools[@]}

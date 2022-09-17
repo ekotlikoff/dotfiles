@@ -2,4 +2,6 @@
 
 if [ "$(uname -s)" == "Darwin" ] && [ "$DOT_TYPE" == "full" ]; then
   command -v alacritty >/dev/null 2>&1 || { echo '  installing Alacritty'; eval $package_manager alacritty; }
+else
+  command -v alacritty >/dev/null 2>&1 || { echo '  Please install Alacritty manually before continuing'; exit 1; }
 fi

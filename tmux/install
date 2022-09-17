@@ -2,4 +2,6 @@
 
 if [ "$(uname -s)" == "Darwin" ] && [ "$DOT_TYPE" == "full" ]; then
   command -v tmux >/dev/null 2>&1 || { echo '  installing tmux'; eval $package_manager tmux; }
+else
+  command -v tmux >/dev/null 2>&1 || { echo '  Please install tmux manually before continuing'; exit 1; }
 fi
