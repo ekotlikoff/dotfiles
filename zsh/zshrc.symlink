@@ -34,6 +34,16 @@ do
   source $file
 done
 
+if [[ "$DOT_TYPE" == "corp" ]]; then
+  corp_config_files=($CORP_DOT/**/*.zsh)
+  corp_config_files=(${corp_config_files:#*/plugin/*})
+  for file in ${corp_config_files}
+  do
+    source $file
+  done
+  unset corp_config_files
+fi
+
 # unset ^[/ (after compinit sets it) to allow for quickly using ^[ to exit insert mode and / to reverse history search
 bindkey -M viins -r "^[/"
 
