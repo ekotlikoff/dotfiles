@@ -4,7 +4,7 @@
 
 cd "$(dirname "$0")/.."
 export DOT=$HOME/.dotfiles
-export CORP_DOT=$HOME/.corpdotfiles
+export CORPDOT=$HOME/.corpdotfiles
 
 dotenv="$DOT/.dotenv"
 set -a

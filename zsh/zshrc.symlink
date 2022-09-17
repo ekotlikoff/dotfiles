@@ -1,5 +1,5 @@
 export DOT=$HOME/.dotfiles
-export CORP_DOT=$HOME/.corpdotfiles
+export CORPDOT=$HOME/.corpdotfiles
 
 dotenv="$DOT/.dotenv"
 set -a
@@ -35,7 +35,7 @@ do
 done
 
 if [[ "$DOT_TYPE" == "corp" ]]; then
-  corp_config_files=($CORP_DOT/**/*.zsh)
+  corp_config_files=($CORPDOT/**/*.zsh)
   corp_config_files=(${corp_config_files:#*/plugin/*})
   for file in ${corp_config_files}
   do
