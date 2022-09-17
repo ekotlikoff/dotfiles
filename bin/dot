@@ -4,6 +4,7 @@
 
 cd "$(dirname "$0")/.."
 export DOT=$HOME/.dotfiles
+export CORP_DOT=$HOME/.corpdotfiles
 
 dotenv="$DOT/.dotenv"
 set -a
@@ -32,7 +33,7 @@ fail () {
 
 set_dot_type() {
   if [ -z "$DOT_TYPE" ]; then
-    user ' - What dot type would you like? "minimal" or "full"?'
+    user ' - What dot type would you like? "corp", "minimal" or "full"?'
     read -e DOT_TYPE
     export DOT_TYPE
     echo "DOT_TYPE='$DOT_TYPE'" >> "$dotenv"

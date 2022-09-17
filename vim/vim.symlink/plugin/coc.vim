@@ -29,3 +29,29 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+if ($DOT_TYPE == 'corp')
+  source $CORP_DOT/vim.vim
+else
+  let g:coc_user_config = {
+      \ "suggest.noselect": "true",
+      \ "coc.preferences.formatOnSaveFiletypes": [
+      \   "go",
+      \   "java",
+      \   "javascript",
+      \   "html",
+      \   "json",
+      \   "rust",
+      \   "yaml"
+      \ ],
+      \ "go.goplsEnv": {
+      \   "GOOS": "js",
+      \   "GOARCH": "wasm"
+      \ },
+      \ "go.goplsOptions": {
+      \   "completeUnimported": v:true
+      \ },
+      \ "java.home": "/usr/local/opt/openjdk",
+      \ "java.format.enabled": "true"
+      \}
+endif
