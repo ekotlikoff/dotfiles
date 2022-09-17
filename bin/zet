@@ -12,6 +12,7 @@ local usage=(
   'zet [-h|--help]'
   'zet [-l|--list] [search_string...]'
   'zet [-o|--open] [last|zet...]'
+  '  Where zet is either a dir name or search term'
   'zet [-e|--edit] <last|search_string...>'
   'zet [screenshot]'
 )
@@ -102,7 +103,18 @@ elif (( $#arg_open )); then
     most_recent=$(ls -t | head -1)
     o "$most_recent"
   else
-    o "$open_arg"
+    if [ -d "$open_arg" ]; then
+      o "$open_arg"
+    else
+      local search_string="$open_arg"
+      local match=$(ls -1t | xargs grep -irl "$search_string" | head -1)
+      if ! [ -z "$match" ]; then
+        o "$match"
+      else
+        echo "No match"
+        exit 0
+      fi
+    fi
   fi
 
 elif [[ $flag_edit ]]; then
