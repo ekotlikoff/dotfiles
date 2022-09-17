@@ -39,21 +39,22 @@ function commit() {
   if ! [[ -n $(git status --porcelain) ]]; then
     return
   fi
-  # Takes zet directories, prompts user then sets commit message based on zet title if singleton and pushes
+  # Prompt the user and as long as no files are already staged, commit them all
   if read -q 'choice?Commit? '; then
     if [[ -n $(git diff --name-only --cached) ]]; then
       echo 'cannot commit, there are already staged files'
       exit 1
     fi
-    local commit_title
-    for dir (${(f)@}); do
-      commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
-      git add "$dir"
-    done
     local count=$(git status --porcelain | wc -l)
     if (( $count > 1 )); then
+      git add -A
       git commit
     else
+      local commit_title
+      for dir (${(f)@}); do
+        commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
+        git add "$dir"
+      done
       git commit -m "$commit_title"
     fi
     git push
