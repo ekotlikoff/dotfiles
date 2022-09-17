@@ -158,6 +158,13 @@ install_dotfiles () {
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+  if [ "$DOT_TYPE" == 'corp' ]; then
+    for src in $(find -H "$CORPDOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+    do
+      dst="$HOME/.$(basename "${src%.*}")"
+      link_file "$src" "$dst"
+    done
+  fi
 }
 
 setup_macos() {
