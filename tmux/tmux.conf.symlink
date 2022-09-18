@@ -1,8 +1,7 @@
 set-option -g prefix C-a
 unbind-key C-b
 
-# add double-tap meta key to toggle last window
-bind-key C-a last-window
-bind-key r source-file ~/.tmux.conf\; display-message '.tmux.conf reloaded'
+# For repeatable bindings you must press it again in 500 millis
+set-option -g repeat-time 500
 
 source-file $HOME/.dotfiles/tmux/config/*
