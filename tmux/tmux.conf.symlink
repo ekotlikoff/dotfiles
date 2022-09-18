@@ -1,7 +1,7 @@
 set-option -g prefix C-a
 unbind-key C-b
 
-# For repeatable bindings you must press it again in 500 millis
-set-option -g repeat-time 500
+# For repeatable bindings you must press it again in 350 millis
+set-option -g repeat-time 350
 
 source-file $HOME/.dotfiles/tmux/config/*
