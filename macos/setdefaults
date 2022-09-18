@@ -84,7 +84,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 2
 
 # Key repeat starts quicker, without this the tmux prefix times out before a held down key starts repeating (makes resizing panes less fun).
-defaults write NSGlobalDomain InitialKeyRepeat -int 25
+defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 # Reduce motion in favor of snappy animation-less movements.
 defaults write com.apple.Accessibility ReduceMotionEnabled 1
