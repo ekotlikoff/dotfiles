@@ -46,15 +46,14 @@ function commit() {
       echo 'cannot commit, there are already staged files'
       exit 1
     fi
+    git add -A
     local count=$(git status --porcelain | wc -l)
     if (( $count > 1 )); then
-      git add -A
       git commit
     else
       local commit_title
       for dir (${(f)@}); do
         commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
-        git add "$dir"
       done
       git commit -m "$commit_title"
     fi
