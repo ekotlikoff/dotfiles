@@ -46,6 +46,7 @@ function commit() {
       echo 'cannot commit, there are already staged files'
       exit 1
     fi
+    git pull --quiet
     git add -A
     local count=$(git status --porcelain | wc -l)
     if (( $count > 1 )); then
@@ -62,9 +63,6 @@ function commit() {
 }
 
 cd $zet_dir
-if [[ $flag_edit ]]; then
-  git pull --quiet
-fi
 
 if [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
