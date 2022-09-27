@@ -90,7 +90,7 @@ if [[ $flag_list ]]; then
       zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
-      ls -1t | xargs grep -lr "$search_string" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}" | head "-$max_zets_to_list"
+      ls -1t | xargs grep -ilr "$search_string" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}" | head "-$max_zets_to_list"
     fi
   fi
 
