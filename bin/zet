@@ -7,6 +7,9 @@ local zet_skeleton="# \n\n\t#"
 local vim_cmd="vim --cmd 'cd $zet_dir'"
 local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 
+local last_sync_f="$HOME/.last_zet_sync"
+local max_sync_delay_seconds=2600
+
 local flag_help flag_list arg_open flag_edit
 local usage=(
   'zet [-h|--help]'
@@ -61,8 +64,17 @@ function commit() {
   fi
 }
 
+function sync() {
+  # If we haven't ran this for >= max_sync_delay_seconds (or if this is the first time) then run git pull
+  if [[ ! -f "$last_sync_f" || $(find "$last_sync_f" -mtime +"${max_sync_delay_seconds}"s -print) ]]; then
+    git pull --quiet
+  fi
+
+  touch "$last_sync_f"
+}
+
 cd $zet_dir
-git pull --quiet
+sync
 
 if [[ $flag_list ]]; then
   local max_zets_to_list=20 is_terminal
