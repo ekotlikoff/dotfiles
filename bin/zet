@@ -10,20 +10,22 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_list arg_open flag_edit
+local flag_help flag_list max_zets_to_list arg_open flag_edit
 local usage=(
   'zet [-h|--help]'
-  'zet [-l|--list] [search_string...]'
-  'zet [-o|--open] [last|zet...]'
+  'zet [-l|--list] [search_string ...]'
+  'zet [-m|--max] [max_zets_to_list ...]'
+  'zet [-o|--open] [last|zet ...]'
   '  Where zet is either a dir name or search term'
-  'zet [-e|--edit] <last|search_string...>'
+  'zet [-e|--edit] <last|search_string ...>'
   'zet [screenshot]'
 )
 
 zmodload zsh/zutil
-zparseopts -D -F -K -- \
+zparseopts -D -K -- \
   {h,-help}=flag_help \
   {l,-list}=flag_list \
+  {m,-max}:=max_zets_to_list \
   {o,-open}:=arg_open \
   {e,-edit}=flag_edit ||
   return 1
@@ -33,6 +35,12 @@ zparseopts -D -F -K -- \
 if ! [[ -d "$zet_dir" ]]; then
   echo 'where is your zet repo?'
   exit 1
+fi
+
+if (( $#max_zets_to_list )); then
+  max_zets_to_list=$max_zets_to_list[-1]
+else
+  max_zets_to_list=20
 fi
 
 function commit() {
@@ -77,7 +85,6 @@ cd $zet_dir
 sync
 
 if [[ $flag_list ]]; then
-  local max_zets_to_list=20 is_terminal
   local search_string="$@[-1]"
   local title='title="$(head -n 1 {}/README.md | sed "s/\# //")";'
   local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
@@ -110,7 +117,7 @@ elif (( $#arg_open )); then
   open_arg=$arg_open[-1]
   if [[ $open_arg == 'last' ]]; then
     most_recent=$(ls -t | head -1)
-    o "$most_recent"
+    o "$most_recent/README.md"
   else
     if [ -d "$open_arg" ]; then
       o "$open_arg"
