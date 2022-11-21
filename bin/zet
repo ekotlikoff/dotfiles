@@ -101,7 +101,7 @@ if [[ $flag_list ]]; then
     fi
   else
     if [[ $flag_edit ]]; then
-      local directories=$(ls -1t | xargs grep -irl "$search_string" | sed 's/\/.*//' | head "-$max_zets_to_list")
+      local directories=$(ls -1t | xargs grep -irl "$search_string" | head "-$max_zets_to_list" | sed 's/\/.*//')
       if [[ -z $directories ]]; then
         exit 0
       fi
@@ -109,7 +109,7 @@ if [[ $flag_list ]]; then
       zsh -c "$vim_cmd $(echo $files)"
       commit $directories
     else
-      ls -1t | xargs grep -ilr "$search_string" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}" | head "-$max_zets_to_list"
+      ls -1t | xargs grep -ilr "$search_string" | head "-$max_zets_to_list" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
   fi
 
