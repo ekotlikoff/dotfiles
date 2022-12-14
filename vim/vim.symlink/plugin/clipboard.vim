@@ -1,1 +1,1 @@
-set clipboard=unnamed " synchronize the unnamed register with the system clipboard
+set clipboard^=unnamed,unnamedplus " synchronize the unnamed register with the system clipboard
