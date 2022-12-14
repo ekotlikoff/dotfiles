@@ -22,7 +22,9 @@ if [ "$DOT_TYPE" == "full" ]; then
 else
   coc_extensions='coc-json coc-html'
 fi
-vim -esN +"CocInstall -sync $coc_extensions | q" +qall
+echo "WARNING +CocInstall is not working from shell, I get an error 'E605: Exception not caught: Error on "installExtensions" request: ...'. Run it manually instead."
+# vim -esN +"CocInstall -sync $coc_extensions | q" +qall
+vim -N +CocUpdateSync +qall
 echo '  installing helptags'
 for plugin in $(find -H "$HOME/.vim/pack/plugin/start/" -maxdepth 2 -name 'doc'); do
   vim -esN +"helptags $plugin" +qall
