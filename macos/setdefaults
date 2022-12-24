@@ -66,6 +66,35 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Disable Notification Center and remove the menu bar icon
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
+# Hot corners (shout out https://github.com/nickstenning/dotfiles/blob/master/dot/osx)
+# Possible values:
+# 0: no-op
+# 2: Mission Control
+# 3: Show application windows
+# 4: Desktop
+# 5: Start screen saver
+# 6: Disable screen saver
+# 7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+
+# Top left screen corner → Mission Control
+defaults write com.apple.dock wvous-tl-corner -int 1
+defaults write com.apple.dock wvous-tl-modifier -int 0
+
+# Top right screen corner → Desktop
+defaults write com.apple.dock wvous-tr-corner -int 1
+defaults write com.apple.dock wvous-tr-modifier -int 0
+
+# Bottom left screen corner → Disable screen saver
+defaults write com.apple.dock wvous-bl-corner -int 1
+defaults write com.apple.dock wvous-bl-modifier -int 0
+
+# Bottom right screen corner → Put display to sleep
+defaults write com.apple.dock wvous-br-corner -int 1
+defaults write com.apple.dock wvous-br-modifier -int 0
+
 #### Keyboard
 
 # Set text shortcuts
