@@ -1,0 +1,4 @@
+#!/bin/zsh
+# random $max outputs a number x where $max >= x >= 1
+
+echo $((1 + $RANDOM % $1))
