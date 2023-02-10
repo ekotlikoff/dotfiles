@@ -44,10 +44,6 @@ else
 fi
 
 function commit() {
-  if [[ -z "$@" ]]; then
-    echo 'commit requires arg'
-    exit 1
-  fi
   if ! [[ -n $(git status --porcelain) ]]; then
     return
   fi
@@ -58,14 +54,17 @@ function commit() {
       exit 1
     fi
     git add -A
+    cd $zet_dir
     local count=$(git status --porcelain | wc -l)
-    if (( $count > 1 )); then
+    if (( $count > 3 )); then
       git commit
     else
+      local modified_dirs=$(git status --porcelain | sed s/^...// | xargs dirname)
       local commit_title
-      for dir (${(f)@}); do
-        commit_title=$(cat "$dir/README.md" | head -1 | sed 's/\# //')
+      for dir (${(f)modified_dirs}); do
+        commit_title+="$(cat "$dir/README.md" | head -1 | sed 's/\# //'), "
       done
+      commit_title="${commit_title:0:-2}"
       git commit -m "$commit_title"
     fi
     git push
@@ -94,7 +93,7 @@ if [[ $flag_list ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       zsh -c "$vim_cmd $(echo $files)"
-      commit $directories
+      commit
     else
       ls -1t | head "-$max_zets_to_list" |
         xargs -I{} zsh -c "${title} ${tags} ${p}"
@@ -107,7 +106,7 @@ if [[ $flag_list ]]; then
       fi
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       zsh -c "$vim_cmd $(echo $files)"
-      commit $directories
+      commit
     else
       ls -1t | xargs grep -ilr "$search_string" | head "-$max_zets_to_list" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
