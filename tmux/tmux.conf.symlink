@@ -5,3 +5,7 @@ unbind-key C-b
 set-option -g repeat-time 350
 
 source-file $HOME/.dotfiles/tmux/config/*
+
+# OS specific bindings
+if-shell 'test "$(uname)" = "Linux"' 'source-file $HOME/.dotfiles/tmux/os-specific/linux.conf'
+if-shell 'test "$(uname)" = "Darwin"' 'source-file $HOME/.dotfiles/tmux/os-specific/darwin.conf'
