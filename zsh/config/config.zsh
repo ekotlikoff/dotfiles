@@ -10,6 +10,7 @@ setopt LOCAL_TRAPS # allow functions to have local traps
 setopt COMPLETE_IN_WORD
 setopt PROMPT_SUBST
 
+setopt SHARE_HISTORY # share history between zsh sessions
 setopt APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 
