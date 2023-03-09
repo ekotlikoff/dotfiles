@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+TZ='UTC' date -Iseconds -r "$1"
