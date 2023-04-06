@@ -10,7 +10,7 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_list max_zets_to_list arg_open flag_edit
+local flag_help flag_list max_zets_to_list arg_open flag_edit flag_diff
 local usage=(
   'zet [-h|--help]'
   'zet [-l|--list] [search_string ...]'
@@ -18,6 +18,7 @@ local usage=(
   'zet [-o|--open] [last|zet ...]'
   '  Where zet is either a dir name or search term'
   'zet [-e|--edit] <last|search_string ...>'
+  'zet [-d|--diff]'
   'zet [screenshot]'
 )
 
@@ -27,7 +28,8 @@ zparseopts -D -K -- \
   {l,-list}=flag_list \
   {m,-max}:=max_zets_to_list \
   {o,-open}:=arg_open \
-  {e,-edit}=flag_edit ||
+  {e,-edit}=flag_edit \
+  {d,-diff}=flag_diff ||
   return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
@@ -147,6 +149,10 @@ elif [[ $flag_edit ]]; then
     dir="$zet_dir/$most_recent_match"
   fi
   commit "$dir"
+
+elif [[ $flag_diff ]]; then
+  cd "$zet_dir"
+  git diff
 
 elif (( $#@ )); then
   echo "unexpected arg $@"
