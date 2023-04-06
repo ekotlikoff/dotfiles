@@ -30,6 +30,6 @@
         # for more information on different options of the below setting.
         default = simple
 [credential]
-        helper = osxkeychain
+	helper = osxkeychain
 [init]
         defaultBranch = main
