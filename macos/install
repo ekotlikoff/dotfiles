@@ -4,6 +4,19 @@
 
 set -e
 
+
+# Remap keys as per https://rakhesh.com/mac/using-hidutil-to-map-macos-keyboard-keys/
+# - Turn off caps lock
+link_remap () {
+  src="$DOT/macos/local.keymap.plist"
+  dst_file="$HOME/Library/LaunchAgents/local.keymap.plist"
+  rm -rf "$dst_file"
+  ln -s "$src" "$dst_file"
+}
+
+link_remap
+
+# Only install software if DOT_TYPE==full
 [ "$DOT_TYPE" == "full" ] || exit 0
 
 # Check for Homebrew
