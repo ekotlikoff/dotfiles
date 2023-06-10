@@ -10,7 +10,7 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_list max_zets_to_list arg_open flag_edit flag_find flag_diff
+local flag_help flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit
 local usage=(
   'zet [-h|--help]'
   'zet [-l|--list] [search_string ...]'
@@ -20,7 +20,10 @@ local usage=(
   'zet [-e|--edit] <search_string ...>'
   '  Where only the first line of zets are searched'
   'zet [-f|--find] <last|search_string ...>'
+  'zet [-rm|--remove] <last|search_string ...>'
   'zet [-d|--diff]'
+  'zet [-s|--status]'
+  'zet [-c|--commit]'
   'zet [screenshot]'
 )
 
@@ -32,7 +35,10 @@ zparseopts -D -K -- \
   {o,-open}:=arg_open \
   {e,-edit}=flag_edit \
   {f,-find}=flag_find \
-  {d,-diff}=flag_diff ||
+  {rm,-remove}=flag_remove \
+  {d,-diff}=flag_diff \
+  {s,-status}=flag_status \
+  {c,-commit}=flag_commit ||
   return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
@@ -54,6 +60,7 @@ function commit() {
   fi
   # Prompt the user and as long as no files are already staged, commit them all
   if read -q 'choice?Commit? '; then
+    echo
     if [[ -n $(git diff --name-only --cached) ]]; then
       echo 'cannot commit, there are already staged files'
       exit 1
@@ -61,13 +68,15 @@ function commit() {
     git add -A
     cd $zet_dir
     local count=$(git status --porcelain | wc -l)
-    if (( $count > 3 )); then
+    if ! [ -z "$1" ]; then
+      git commit -m "$1"
+    elif (( $count > 3 )); then
       git commit
     else
       local modified_dirs=$(git status --porcelain | sed s/^...// | xargs dirname)
       local commit_title
       for dir (${(f)modified_dirs}); do
-        commit_title+="$(cat "$dir/README.md" | head -1 | sed 's/\# //'), "
+        commit_title+="$(head -n 1 $dir/README.md | sed "s/\# //"), "
       done
       commit_title="${commit_title:0:-2}"
       git commit -m "$commit_title"
@@ -155,8 +164,7 @@ elif [[ $flag_edit ]]; then
     cd "$zet"
     zsh -c "$vim_cmd README.md"
   fi
-  commit "$zet"
-
+  commit
 
 elif [[ $flag_find ]]; then
   local edit_arg="$@[-1]"
@@ -169,11 +177,41 @@ elif [[ $flag_find ]]; then
   cd $most_recent_match
   zsh -c "$vim_cmd README.md"
   zet="$zet_dir/$most_recent_match"
-  commit "$zet"
+  commit
+
+elif [[ $flag_remove ]]; then
+  local remove_arg="$@[-1]"
+  local zet=''
+  if [[ "$remove_arg" == 'last' || -z "$remove_arg" ]]; then
+    local zet=$zet_dir/$(ls -t | head -1)
+  else
+    for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$remove_arg" && zet=$dir; done
+    if [ -z $zet ]; then
+      echo "No zets found with: $remove_arg"
+      exit 1
+    fi
+  fi
+  local title="$(head -n 1 $zet/README.md | sed "s/\# //")"
+  read -q "REPLY?Removing '$title', are you sure? [y/n] "
+  echo
+  if [[ "$REPLY" == 'y' || "$REPLY" == 'Y' ]]; then
+    cd "$zet_dir"
+    rm -rf "$zet"
+    commit "$title"
+  fi
 
 elif [[ $flag_diff ]]; then
   cd "$zet_dir"
   git diff
+
+elif [[ $flag_status ]]; then
+  cd "$zet_dir"
+  git status
+
+elif [[ $flag_commit ]]; then
+  cd "$zet_dir"
+  git commit
+  git push
 
 elif (( $#@ )); then
   echo "unexpected arg $@"
