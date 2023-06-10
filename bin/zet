@@ -10,14 +10,16 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_list max_zets_to_list arg_open flag_edit flag_diff
+local flag_help flag_list max_zets_to_list arg_open flag_edit flag_find flag_diff
 local usage=(
   'zet [-h|--help]'
   'zet [-l|--list] [search_string ...]'
   'zet [-m|--max] [max_zets_to_list ...]'
   'zet [-o|--open] [last|zet ...]'
   '  Where zet is either a dir name or search term'
-  'zet [-e|--edit] <last|search_string ...>'
+  'zet [-e|--edit] <search_string ...>'
+  '  Where only the first line of zets are searched'
+  'zet [-f|--find] <last|search_string ...>'
   'zet [-d|--diff]'
   'zet [screenshot]'
 )
@@ -29,6 +31,7 @@ zparseopts -D -K -- \
   {m,-max}:=max_zets_to_list \
   {o,-open}:=arg_open \
   {e,-edit}=flag_edit \
+  {f,-find}=flag_find \
   {d,-diff}=flag_diff ||
   return 1
 
@@ -91,7 +94,7 @@ if [[ $flag_list ]]; then
   local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
   local p='printf "  %s %-50b %s\n" "{}" "\033[1m$title\033[0m" "$tags"'
   if [[ -z "$search_string" ]]; then
-    if [[ $flag_edit ]]; then
+    if [[ $flag_find ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       zsh -c "$vim_cmd $(echo $files)"
@@ -101,7 +104,7 @@ if [[ $flag_list ]]; then
         xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
   else
-    if [[ $flag_edit ]]; then
+    if [[ $flag_find ]]; then
       local directories=$(ls -1t | xargs grep -irl "$search_string" | head "-$max_zets_to_list" | sed 's/\/.*//')
       if [[ -z $directories ]]; then
         exit 0
@@ -136,19 +139,28 @@ elif (( $#arg_open )); then
 
 elif [[ $flag_edit ]]; then
   local edit_arg="$@[-1]"
-  local dir=''
+  local zet=''
   if [[ $edit_arg == 'last' ]]; then
     local most_recent=$(ls -t | head -1)
     cd $most_recent
     zsh -c "$vim_cmd README.md"
-    dir="$zet_dir/$most_recent"
+    zet="$zet_dir/$most_recent"
   else
-    local most_recent_match=$(ls -t | xargs grep -irl "$edit_arg" | sed 's/\/.*//' | head -1)
-    cd $most_recent_match
+    for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$edit_arg" && zet=$dir; done
+    cd "$zet"
     zsh -c "$vim_cmd README.md"
-    dir="$zet_dir/$most_recent_match"
   fi
-  commit "$dir"
+  commit "$zet"
+
+
+elif [[ $flag_find ]]; then
+  local edit_arg="$@[-1]"
+  local zet=''
+  local most_recent_match=$(ls -t | xargs grep -irl "$edit_arg" | sed 's/\/.*//' | head -1)
+  cd $most_recent_match
+  zsh -c "$vim_cmd README.md"
+  zet="$zet_dir/$most_recent_match"
+  commit "$zet"
 
 elif [[ $flag_diff ]]; then
   cd "$zet_dir"
@@ -159,12 +171,12 @@ elif (( $#@ )); then
   exit 1
 else
   # New zet
-  local dir="$zet_dir/$(date +'%m%d%Y%I%M%S')"
-  if [[ -d $dir ]]; then
+  local zet="$zet_dir/$(date +'%m%d%Y%I%M%S')"
+  if [[ -d $zet ]]; then
     echo 'zet already exists'
     exit 1
   fi
-  mkdir "$dir"
+  mkdir "$zet"
   if [[ "$@" == screenshot ]]; then
     # TODO zet screenshot
     # TODO Instruct user to take a screenshot to ~/Pictures/
@@ -173,7 +185,7 @@ else
     echo 'zet screenshot'
     exit
   fi
-  echo "$zet_skeleton" > "$dir/README.md"
-  zsh -c "$vim_new_zet_cmd $dir/README.md"
+  echo "$zet_skeleton" > "$zet/README.md"
+  zsh -c "$vim_new_zet_cmd $zet/README.md"
   commit "$dir"
 fi
