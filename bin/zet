@@ -220,8 +220,7 @@ elif [[ $flag_status ]]; then
 
 elif [[ $flag_commit ]]; then
   cd "$zet_dir"
-  git commit
-  git push
+  commit
 
 else
   # Default to edit
