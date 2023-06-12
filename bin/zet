@@ -10,13 +10,16 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit
+local flag_help flag_new flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit
 local usage=(
   'zet [-h|--help]'
+  'zet [screenshot]'
+  '  Create a new zet, optionally with a screenshot'
   'zet [-l|--list] [search_string ...]'
   'zet [-m|--max] [max_zets_to_list ...]'
   'zet [-o|--open] [last|zet ...]'
   '  Where zet is either a dir name or search term'
+  'zet <search_string ...>'
   'zet [-e|--edit] <search_string ...>'
   '  Where only the first line of zets are searched'
   'zet [-f|--find] <last|search_string ...>'
@@ -24,8 +27,11 @@ local usage=(
   'zet [-d|--diff]'
   'zet [-s|--status]'
   'zet [-c|--commit]'
-  'zet [screenshot]'
 )
+
+if [[ $# -eq 0 ]]; then
+  flag_new=true
+fi
 
 zmodload zsh/zutil
 zparseopts -D -K -- \
@@ -97,7 +103,27 @@ function sync() {
 cd $zet_dir
 sync
 
-if [[ $flag_list ]]; then
+if [[ $flag_new ]]; then
+  # New zet
+  local zet="$zet_dir/$(date +'%m%d%Y%I%M%S')"
+  if [[ -d $zet ]]; then
+    echo 'zet already exists'
+    exit 1
+  fi
+  mkdir "$zet"
+  if [[ "$@" == screenshot ]]; then
+    # TODO zet screenshot
+    # TODO Instruct user to take a screenshot to ~/Pictures/
+    # TODO take latest picture there, add it to zet
+    # TODO write README.md template with link to picture
+    echo 'zet screenshot'
+    exit
+  fi
+  echo "$zet_skeleton" > "$zet/README.md"
+  zsh -c "$vim_new_zet_cmd $zet/README.md"
+  commit "$dir"
+
+elif [[ $flag_list ]]; then
   local search_string="$@[-1]"
   local title='title="$(head -n 1 {}/README.md | sed "s/\# //")";'
   local tags='tags="$(tail -n 1 {}/README.md | grep "\t#" | sed "s/^\t//")";'
@@ -146,25 +172,6 @@ elif (( $#arg_open )); then
       fi
     fi
   fi
-
-elif [[ $flag_edit ]]; then
-  local edit_arg="$@[-1]"
-  local zet=''
-  if [[ $edit_arg == 'last' ]]; then
-    local most_recent=$(ls -t | head -1)
-    cd $most_recent
-    zsh -c "$vim_cmd README.md"
-    zet="$zet_dir/$most_recent"
-  else
-    for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$edit_arg" && zet=$dir; done
-    if [ -z $zet ]; then
-      echo "No zets found with: $edit_arg"
-      exit 1
-    fi
-    cd "$zet"
-    zsh -c "$vim_cmd README.md"
-  fi
-  commit
 
 elif [[ $flag_find ]]; then
   local edit_arg="$@[-1]"
@@ -216,26 +223,23 @@ elif [[ $flag_commit ]]; then
   git commit
   git push
 
-elif (( $#@ )); then
-  echo "unexpected arg $@"
-  exit 1
 else
-  # New zet
-  local zet="$zet_dir/$(date +'%m%d%Y%I%M%S')"
-  if [[ -d $zet ]]; then
-    echo 'zet already exists'
-    exit 1
+  # Default to edit
+  local edit_arg="$@[-1]"
+  local zet=''
+  if [[ $edit_arg == 'last' ]]; then
+    local most_recent=$(ls -t | head -1)
+    cd $most_recent
+    zsh -c "$vim_cmd README.md"
+    zet="$zet_dir/$most_recent"
+  else
+    for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$edit_arg" && zet=$dir; done
+    if [ -z $zet ]; then
+      echo "No zets found with: $edit_arg"
+      exit 1
+    fi
+    cd "$zet"
+    zsh -c "$vim_cmd README.md"
   fi
-  mkdir "$zet"
-  if [[ "$@" == screenshot ]]; then
-    # TODO zet screenshot
-    # TODO Instruct user to take a screenshot to ~/Pictures/
-    # TODO take latest picture there, add it to zet
-    # TODO write README.md template with link to picture
-    echo 'zet screenshot'
-    exit
-  fi
-  echo "$zet_skeleton" > "$zet/README.md"
-  zsh -c "$vim_new_zet_cmd $zet/README.md"
-  commit "$dir"
+  commit
 fi
