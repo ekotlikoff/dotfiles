@@ -192,6 +192,9 @@ elif [[ $flag_remove ]]; then
     fi
   fi
   local title="$(head -n 1 $zet/README.md | sed "s/\# //")"
+  if [[ -z "$title" ]]; then
+    title="$zet"
+  fi
   read -q "REPLY?Removing '$title', are you sure? [y/n] "
   echo
   if [[ "$REPLY" == 'y' || "$REPLY" == 'Y' ]]; then
