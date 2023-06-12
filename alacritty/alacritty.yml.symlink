@@ -40,7 +40,18 @@ draw_bold_text_with_bright_colors: true
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
-  history: 5000
+  history: 10000
+
+# These key bindings are necessary because the OS level keybinds that run the automator services
+# ($DOT/macos/*.workflow) don't work when alacritty is focused. These bindings also have the benefit
+# of being much faster than the MacOS native ones.
+# https://github.com/alacritty/alacritty/issues/401
+key_bindings:
+  - { key: J, mods: Control, command: { program: "open", args: ["-a", "google chrome"] } }
+  - { key: K, mods: Control, command: { program: "open", args: ["-a", "gmail"] } }
+  - { key: L, mods: Control, command: { program: "open", args: ["-a", "google chat"] } }
+  - { key: Semicolon, mods: Control, command: { program: "open", args: ["-a", "google calendar"] } }
+
 
 shell:
   program: /usr/local/bin/tmux

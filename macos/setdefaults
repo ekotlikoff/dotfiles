@@ -97,6 +97,14 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 
 #### Keyboard
 
+# Set open app shortcut keys (ctrl + right hand). The services (openalacritty etc) are defined in
+# "$DOT/macos/*.workflow"
+defaults write pbs NSServicesStatus -dict-add '"(null) - openalacritty - runWorkflowAsService"' '{key_equivalent = "^h";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - openchrome - runWorkflowAsService"' '{key_equivalent = "^j";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^k";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowAsService"' '{key_equivalent = "^l";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^;";}'
+
 # Set text shortcuts
 defaults write -g NSUserDictionaryReplacementItems -array ''
 
@@ -351,9 +359,6 @@ defaults write com.apple.mail DisableSendAnimations -bool true
 
 # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-
-# Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
-defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
 
 # Display emails in threaded mode, sorted by date (oldest at the top)
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"

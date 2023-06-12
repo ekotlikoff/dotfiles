@@ -5,16 +5,22 @@
 set -e
 
 
-# Remap keys as per https://rakhesh.com/mac/using-hidutil-to-map-macos-keyboard-keys/
-# - Turn off caps lock
-link_remap () {
-  src="$DOT/macos/local.keymap.plist"
-  dst_file="$HOME/Library/LaunchAgents/local.keymap.plist"
-  rm -rf "$dst_file"
-  ln -s "$src" "$dst_file"
+link_file () {
+  local src=$1 dst=$2
+  rm -rf "$dst" 2>/dev/null
+  ln -s "$src" "$dst"
 }
 
-link_remap
+# Remap keys as per https://rakhesh.com/mac/using-hidutil-to-map-macos-keyboard-keys/
+# This adds a launch agent which runs at login time, updating the following key mappings:
+# - Turn off caps lock
+link_file "$DOT/macos/local.keymap.plist" "$HOME/Library/LaunchAgents/local.keymap.plist"
+# This adds the MacOS automator services that open specific apps, we bind these to keyboard
+# shortcuts in "$DOT/macos/setdefaults"
+for file in $DOT/macos/*.workflow; do
+  link_file "$file" "$HOME/Library/Services/$(basename $file)"
+done
+
 
 # Only install software if DOT_TYPE==full
 [ "$DOT_TYPE" == "full" ] || exit 0
