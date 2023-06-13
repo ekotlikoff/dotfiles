@@ -47,10 +47,10 @@ scrolling:
 # of being much faster than the MacOS native ones.
 # https://github.com/alacritty/alacritty/issues/401
 key_bindings:
-  - { key: J, mods: Control, command: { program: "open", args: ["-a", "google chrome"] } }
-  - { key: K, mods: Control, command: { program: "open", args: ["-a", "gmail"] } }
-  - { key: L, mods: Control, command: { program: "open", args: ["-a", "google chat"] } }
-  - { key: Semicolon, mods: Control, command: { program: "open", args: ["-a", "google calendar"] } }
+  - { key: J, mods: Control|Shift, command: { program: "open", args: ["-a", "google chrome"] } }
+  - { key: K, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
+  - { key: L, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
+  - { key: Semicolon, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
 
 
 shell:
