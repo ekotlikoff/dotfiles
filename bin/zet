@@ -133,7 +133,6 @@ elif [[ $flag_list ]]; then
       local directories=$(ls -1t | head "-$max_zets_to_list")
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       zsh -c "$vim_cmd $(echo $files)"
-      commit
     else
       ls -1t | head "-$max_zets_to_list" |
         xargs -I{} zsh -c "${title} ${tags} ${p}"
@@ -147,7 +146,6 @@ elif [[ $flag_list ]]; then
       fi
       local files=$(echo $directories | sed 's/$/\/README.md/' | tr '\n' ' ')
       zsh -c "$vim_cmd $(echo $files)"
-      commit
     else
       ls -1t | xargs grep -ilr "$search_string" | head "-$max_zets_to_list" | cut -d/ -f1 | xargs -I{} zsh -c "${title} ${tags} ${p}"
     fi
@@ -184,7 +182,6 @@ elif [[ $flag_find ]]; then
   cd $most_recent_match
   zsh -c "$vim_cmd README.md"
   zet="$zet_dir/$most_recent_match"
-  commit
 
 elif [[ $flag_remove ]]; then
   local remove_arg="$@[-1]"
@@ -240,5 +237,4 @@ else
     cd "$zet"
     zsh -c "$vim_cmd README.md"
   fi
-  commit
 fi
