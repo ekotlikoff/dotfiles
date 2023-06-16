@@ -10,7 +10,7 @@ local vim_new_zet_cmd="vim -c 'cd $zet_dir | startinsert!'"
 local last_sync_f="$HOME/.last_zet_sync"
 local max_sync_delay_seconds=2600
 
-local flag_help flag_new flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit
+local flag_help flag_new flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit flag_vimode
 local usage=(
   'zet [-h|--help]'
   'zet [screenshot]'
@@ -27,6 +27,7 @@ local usage=(
   'zet [-d|--diff]'
   'zet [-s|--status]'
   'zet [-c|--commit]'
+  'zet [-vim|--vimode]'
 )
 
 if [[ $# -eq 0 ]]; then
@@ -44,7 +45,8 @@ zparseopts -D -K -- \
   {rm,-remove}=flag_remove \
   {d,-diff}=flag_diff \
   {s,-status}=flag_status \
-  {c,-commit}=flag_commit ||
+  {c,-commit}=flag_commit \
+  {v,-vimode}=flag_vimode ||
   return 1
 
 [[ -z "$flag_help" ]] || { print -l $usage && return }
@@ -180,14 +182,17 @@ elif [[ $flag_find ]]; then
     exit 1
   fi
   cd $most_recent_match
-  zsh -c "$vim_cmd README.md"
-  zet="$zet_dir/$most_recent_match"
+  if [[ $flag_vimode ]]; then
+    echo "$PWD/README.md"
+  else
+    zsh -c "$vim_cmd README.md"
+  fi
 
 elif [[ $flag_remove ]]; then
   local remove_arg="$@[-1]"
   local zet=''
   if [[ "$remove_arg" == 'last' || -z "$remove_arg" ]]; then
-    local zet=$zet_dir/$(ls -t | head -1)
+    zet=$zet_dir/$(ls -t | head -1)
   else
     for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$remove_arg" && zet=$dir; done
     if [ -z $zet ]; then
@@ -225,8 +230,6 @@ else
   local zet=''
   if [[ $edit_arg == 'last' ]]; then
     local most_recent=$(ls -t | head -1)
-    cd $most_recent
-    zsh -c "$vim_cmd README.md"
     zet="$zet_dir/$most_recent"
   else
     for dir in $zet_dir/*; do head -n1 $dir/README.md | grep -iq "$edit_arg" && zet=$dir; done
@@ -234,7 +237,11 @@ else
       echo "No zets found with: $edit_arg"
       exit 1
     fi
-    cd "$zet"
+  fi
+  cd "$zet"
+  if [[ $flag_vimode ]]; then
+    echo "$PWD/README.md"
+  else
     zsh -c "$vim_cmd README.md"
   fi
 fi
