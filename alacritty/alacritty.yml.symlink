@@ -51,6 +51,8 @@ key_bindings:
   - { key: K, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
   - { key: L, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
   - { key: Semicolon, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
+  - { key: U, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"] } }
+  - { key: I, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"] } }
 
 
 shell:

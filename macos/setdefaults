@@ -97,13 +97,17 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 
 #### Keyboard
 
-# Set open app shortcut keys (ctrl + right hand). The services (openalacritty etc) are defined in
+# Set shortcut keys. The services (openalacritty etc) are defined in
 # "$DOT/macos/*.workflow"
+# App shortcut keys (ctrl + shift + right hand)
 defaults write pbs NSServicesStatus -dict-add '"(null) - openalacritty - runWorkflowAsService"' '{key_equivalent = "^$h";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - openchrome - runWorkflowAsService"' '{key_equivalent = "^$j";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^$k";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowAsService"' '{key_equivalent = "^$l";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^$;";}'
+# Volume shortcut keys
+defaults write pbs NSServicesStatus -dict-add '"(null) - volumedown - runWorkflowAsService"' '{key_equivalent = "^$u";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowAsService"' '{key_equivalent = "^$i";}'
 
 # Set text shortcuts
 defaults write -g NSUserDictionaryReplacementItems -array ''
@@ -111,8 +115,7 @@ defaults write -g NSUserDictionaryReplacementItems -array ''
 #### Mouse
 
 # Unclear how to turn off mouse acceleration and set tracking speed
-defaults write NSGlobalDomain com.apple.mouse.scaling -float 3
-defaults write NSGlobalDomain com.apple.mouse.scaling -int -1
+defaults write NSGlobalDomain com.apple.mouse.scaling -float 2
 # Set scroll direction
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
