@@ -51,9 +51,8 @@ key_bindings:
   - { key: Z, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
   - { key: X, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
   - { key: C, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
-  - { key: U, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"] } }
-  - { key: I, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"] } }
-
+  - { key: I, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"] } }
+  - { key: O, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"] } }
 
 shell:
   program: /usr/local/bin/tmux

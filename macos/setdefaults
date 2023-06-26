@@ -105,8 +105,8 @@ defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowA
 defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^$x";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^$c";}'
 # Volume shortcut keys
-defaults write pbs NSServicesStatus -dict-add '"(null) - volumedown - runWorkflowAsService"' '{key_equivalent = "^$u";}'
-defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowAsService"' '{key_equivalent = "^$i";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - volumedown - runWorkflowAsService"' '{key_equivalent = "^$i";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowAsService"' '{key_equivalent = "^$o";}'
 
 # Set text shortcuts
 defaults write -g NSUserDictionaryReplacementItems -array ''
