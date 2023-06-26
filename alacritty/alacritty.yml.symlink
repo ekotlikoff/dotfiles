@@ -47,11 +47,11 @@ scrolling:
 # of being much faster than the MacOS native ones.
 # https://github.com/alacritty/alacritty/issues/401
 key_bindings:
-  - { key: J, mods: Control|Shift, command: { program: "open", args: ["-a", "google chrome"] } }
-  - { key: K, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
-  - { key: L, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
-  - { key: Semicolon, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
-  - { key: U, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"] } }
+  - { key: Space, mods: Control|Shift, command: { program: "open", args: ["-a", "google chrome"] } }
+  - { key: Z, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
+  - { key: X, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
+  - { key: C, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
+  - { key: U, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 0)"] } }
   - { key: I, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"] } }
 
 
