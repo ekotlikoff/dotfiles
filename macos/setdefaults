@@ -97,14 +97,13 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 
 #### Keyboard
 
-# Set shortcut keys. The services (openalacritty etc) are defined in
-# "$DOT/macos/*.workflow"
-# App shortcut keys (ctrl + shift + right hand)
-defaults write pbs NSServicesStatus -dict-add '"(null) - openalacritty - runWorkflowAsService"' '{key_equivalent = "^$h";}'
-defaults write pbs NSServicesStatus -dict-add '"(null) - openchrome - runWorkflowAsService"' '{key_equivalent = "^$j";}'
-defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^$k";}'
-defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowAsService"' '{key_equivalent = "^$l";}'
-defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^$;";}'
+# Set shortcut keys. The services (openalacritty etc) are defined in "$DOT/macos/*.workflow"
+# App shortcut keys (ctrl + shift + mostly left hand, right hand for apps with no mouse)
+defaults write pbs NSServicesStatus -dict-add '"(null) - openalacritty - runWorkflowAsService"' '{key_equivalent = "^$j";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - openchrome - runWorkflowAsService"' '{key_equivalent = "^$Space";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowAsService"' '{key_equivalent = "^$z";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^$x";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^$c";}'
 # Volume shortcut keys
 defaults write pbs NSServicesStatus -dict-add '"(null) - volumedown - runWorkflowAsService"' '{key_equivalent = "^$u";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowAsService"' '{key_equivalent = "^$i";}'
