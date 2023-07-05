@@ -5,7 +5,11 @@ endfunction
 
 function! Zet(...)
     let output = system('$HOME/.dotfiles/bin/zet --vimode '.join(a:000))
-    execute 'edit '.output
+    if filereadable(output)
+        execute 'edit '.output
+    else
+        echo output
+    endif
 endfunction
 
 nnoremap <Leader>z :call ZetWrapper()<CR>

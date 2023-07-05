@@ -183,7 +183,7 @@ elif [[ $flag_find ]]; then
   fi
   cd $most_recent_match
   if [[ $flag_vimode ]]; then
-    echo "$PWD/README.md"
+    echo -n "$PWD/README.md"
   else
     zsh -c "$vim_cmd README.md"
   fi
@@ -240,7 +240,7 @@ else
   fi
   cd "$zet"
   if [[ $flag_vimode ]]; then
-    echo "$PWD/README.md"
+    echo -n "$PWD/README.md"
   else
     zsh -c "$vim_cmd README.md"
   fi
