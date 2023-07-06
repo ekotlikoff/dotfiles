@@ -4,10 +4,11 @@ function ZetWrapper()
 endfunction
 
 function! Zet(...)
-    let output = system('$HOME/.dotfiles/bin/zet --vimode '.join(a:000))
+    silent let output = substitute(system('$HOME/.dotfiles/bin/zet --vimode '.join(a:000)), '\e\[[0-9;]*m', '', 'g')
     if filereadable(output)
         execute 'edit '.output
     else
+        redraw
         echo output
     endif
 endfunction

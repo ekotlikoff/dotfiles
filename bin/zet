@@ -67,8 +67,14 @@ function commit() {
     return
   fi
   # Prompt the user and as long as no files are already staged, commit them all
-  if read -q 'choice?Commit? '; then
+  local should_commit
+  if [[ $flag_vimode ]]; then
+    should_commit=true
+  elif read -q 'choice?Commit? '; then
     echo
+    should_commit=true
+  fi
+  if [[ $should_commit ]]; then
     if [[ -n $(git diff --name-only --cached) ]]; then
       echo 'cannot commit, there are already staged files'
       exit 1
