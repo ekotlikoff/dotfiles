@@ -104,6 +104,7 @@ defaults write pbs NSServicesStatus -dict-add '"(null) - openchrome - runWorkflo
 defaults write pbs NSServicesStatus -dict-add '"(null) - openchat - runWorkflowAsService"' '{key_equivalent = "^$z";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - opengmail - runWorkflowAsService"' '{key_equivalent = "^$x";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - opencal - runWorkflowAsService"' '{key_equivalent = "^$c";}'
+defaults write pbs NSServicesStatus -dict-add '"(null) - openytmusic - runWorkflowAsService"' '{key_equivalent = "^$a";}'
 # Volume shortcut keys
 defaults write pbs NSServicesStatus -dict-add '"(null) - volumedown - runWorkflowAsService"' '{key_equivalent = "^$i";}'
 defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowAsService"' '{key_equivalent = "^$o";}'
