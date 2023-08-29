@@ -112,6 +112,9 @@ defaults write pbs NSServicesStatus -dict-add '"(null) - volumeup - runWorkflowA
 # Set text shortcuts
 defaults write -g NSUserDictionaryReplacementItems -array ''
 
+# Disable automatic period substitution
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+
 #### Mouse
 
 # Unclear how to turn off mouse acceleration and set tracking speed
