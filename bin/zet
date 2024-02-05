@@ -13,7 +13,7 @@ local max_sync_delay_seconds=2600
 local flag_help flag_new flag_list max_zets_to_list arg_open flag_edit flag_find flag_remove flag_diff flag_status flag_commit flag_vimode
 local usage=(
   'zet [-h|--help]'
-  'zet [screenshot]'
+  'zet [screenshot] | zet [-n|--new]'
   '  Create a new zet, optionally with a screenshot'
   'zet [-l|--list] [search_string ...]'
   'zet [-m|--max] [max_zets_to_list ...]'
@@ -39,6 +39,7 @@ zparseopts -D -K -- \
   {h,-help}=flag_help \
   {l,-list}=flag_list \
   {m,-max}:=max_zets_to_list \
+  {n,-new}=flag_new \
   {o,-open}:=arg_open \
   {e,-edit}=flag_edit \
   {f,-find}=flag_find \
