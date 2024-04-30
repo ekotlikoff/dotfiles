@@ -95,6 +95,9 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 1
 defaults write com.apple.dock wvous-br-modifier -int 0
 
+# Turn off reveal desktop by clicking wallpaper shortcut
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -int 0
+
 #### Keyboard
 
 # Set shortcut keys. The services (openalacritty etc) are defined in "$DOT/macos/*.workflow"
