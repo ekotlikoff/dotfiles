@@ -17,5 +17,3 @@ setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 # don't expand aliases _before_ completion has finished
 #    like: git comm-[tab]
 setopt complete_aliases
-
-bindkey -v # vi mode
