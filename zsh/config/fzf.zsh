@@ -108,11 +108,11 @@ fzf-history-widget() {
 zle     -N            fzf-history-widget
 bindkey -M vicmd '/'  fzf-history-widget
 
-# / - Search for file based on contents with ripgrep, open selected file in vim
+# CTRL-G - Search for file based on contents with ripgrep, open selected file in vim
 zle     -N               "$DOT/bin/rgfzf^M"
-bindkey -M emacs -s '^R' "$DOT/bin/rgfzf^M"
-bindkey -M vicmd -s '^R' "$DOT/bin/rgfzf^M"
-bindkey -M viins -s '^R' "$DOT/bin/rgfzf^M"
+bindkey -M emacs -s '^G' "$DOT/bin/rgfzf^M"
+bindkey -M vicmd -s '^G' "$DOT/bin/rgfzf^M"
+bindkey -M viins -s '^G' "$DOT/bin/rgfzf^M"
 
 } always {
   eval $__fzf_key_bindings_options

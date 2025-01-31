@@ -25,7 +25,7 @@ This repo configures the below components for a nice developer setup. It is curr
 - ZSH shell
   - [typewritten](https://github.com/reobin/typewritten) for a nice prompt that we could probably prune down into our own lighter version (with less git information displayed)
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) for syntax highlighting as you type
-  - [fzf](https://github.com/junegunn/fzf) for `/` history search, `**` + `^F` file search, and `^R` ripgrep search
+  - [fzf](https://github.com/junegunn/fzf) for `/` history search, `**` + `^F` file search, and `^G` ripgrep search
   - [glow](https://github.com/charmbracelet/glow) to render markdown, e.g. `glow README.md`
   - Readline configured in vi mode where `v` opens up your external editor
 - [Git configs](git/gitconfig.symlink)
