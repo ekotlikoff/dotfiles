@@ -118,6 +118,10 @@ defaults write -g NSUserDictionaryReplacementItems -array ''
 # Disable automatic period substitution
 defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
 
+# Disable shortcut (double-fn) for enabling dictation
+# https://apple.stackexchange.com/questions/365048/disable-dictation-from-command-line
+sudo defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0
+
 #### Mouse
 
 # Unclear how to turn off mouse acceleration and set tracking speed
