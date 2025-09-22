@@ -11,6 +11,8 @@ link_file () {
   ln -s "$src" "$dst"
 }
 
+mkdir -p "$HOME/Library/Services"
+
 # Remap keys as per https://rakhesh.com/mac/using-hidutil-to-map-macos-keyboard-keys/
 # This adds a launch agent which runs at login time, updating the following key mappings:
 # - Turn off caps lock
