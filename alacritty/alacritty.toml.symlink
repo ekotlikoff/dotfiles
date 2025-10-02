@@ -1,65 +1,86 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator
-import:
-  - $DOT/alacritty/color.yml
 
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty it self.
-env:
-  # TERM env customization.
-  #
-  # If this property is not set, alacritty will set it to xterm-256color.
-  #
-  # Note that some xterm terminfo databases don't declare support for italics.
-  # You can verify this by checking for the presence of `smso` and `sitm` in
-  # `infocmp xterm-256color`.
-  TERM: xterm-256color
+[[keyboard.bindings]]
+key = "Space"
+mods = "Control|Shift"
 
-window:
-  startup_mode: Windowed
+[keyboard.bindings.command]
+args = ["-a", "google chrome"]
+program = "open"
 
-  # Adds this many blank pixels of padding around the window
-  # Units are physical pixels; this is not DPI aware.
-  # (change requires restart)
-  padding:
-    x: 0
-    y: 0
+[[keyboard.bindings]]
+key = "Z"
+mods = "Control|Shift"
 
-  # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+[keyboard.bindings.command]
+args = ["-a", "google chat"]
+program = "open"
 
-  dynamic_title: true
+[[keyboard.bindings]]
+key = "X"
+mods = "Control|Shift"
 
+[keyboard.bindings.command]
+args = ["-a", "gmail"]
+program = "open"
 
-  # Window decorations
-  # Setting this to false will result in window without borders and title bar.
-  decorations: full
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
 
-# When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
+[keyboard.bindings.command]
+args = ["-a", "google calendar"]
+program = "open"
 
-scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  history: 10000
+[[keyboard.bindings]]
+key = "A"
+mods = "Control|Shift"
 
-# These key bindings are necessary because the OS level keybinds that run the automator services
-# ($DOT/macos/*.workflow) don't work when alacritty is focused. These bindings also have the benefit
-# of being much faster than the MacOS native ones.
-# https://github.com/alacritty/alacritty/issues/401
-key_bindings:
-  - { key: Space, mods: Control|Shift, command: { program: "open", args: ["-a", "google chrome"] } }
-  - { key: Z, mods: Control|Shift, command: { program: "open", args: ["-a", "google chat"] } }
-  - { key: X, mods: Control|Shift, command: { program: "open", args: ["-a", "gmail"] } }
-  - { key: C, mods: Control|Shift, command: { program: "open", args: ["-a", "google calendar"] } }
-  - { key: A, mods: Control|Shift, command: { program: "open", args: ["-a", "youtube music"] } }
-  - { key: I, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"] } }
-  - { key: O, mods: Control|Shift, command: { program: "osascript", args: ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"] } }
+[keyboard.bindings.command]
+args = ["-a", "youtube music"]
+program = "open"
 
-shell:
-  program: /usr/local/bin/tmux
-  args:
-    - new-session
-    - -A
-    - -D
-    - -s
-    - main
+[[keyboard.bindings]]
+key = "I"
+mods = "Control|Shift"
+
+[keyboard.bindings.command]
+args = ["-e", "set volume output volume ((output volume of (get volume settings)) - 1)"]
+program = "osascript"
+
+[[keyboard.bindings]]
+key = "O"
+mods = "Control|Shift"
+
+[keyboard.bindings.command]
+args = ["-e", "set volume output volume ((output volume of (get volume settings)) + 1)"]
+program = "osascript"
+
+[general]
+import = ["/Users/ekotlikoff/$DOT/alacritty/color.yml"]
+
+[terminal]
+
+[env]
+TERM = "xterm-256color"
+
+[scrolling]
+history = 10000
+
+[terminal.shell]
+args = ["new-session", "-A", "-D", "-s", "main"]
+program = "/opt/homebrew/bin/tmux"
+
+[window]
+decorations = "full"
+dynamic_padding = false
+dynamic_title = true
+startup_mode = "Windowed"
+
+[window.padding]
+x = 0
+y = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[keyboard]
