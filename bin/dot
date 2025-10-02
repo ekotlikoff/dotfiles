@@ -186,10 +186,9 @@ git submodule --quiet update --remote --merge
 
 info "running installers"
 # find the installers and run them
-find . -maxdepth 2 -name install -not -path "./macos/*" |
-  while read installer; do
-    echo "  > running $installer"
-    sh -c "${installer}"
-  done
+find $DOT -type f -maxdepth 2 -name install -not -path "./macos/*" -exec zsh -c '
+  echo "  > running $1"
+  "${1}"
+' zsh {} \;
 
 success 'Done!'
