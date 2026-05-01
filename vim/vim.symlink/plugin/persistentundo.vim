@@ -8,9 +8,13 @@ endif
 
 if has('persistent_undo')
     let myUndoDir = expand(configDir . '/undo')
-    " Create dirs
-    call system('mkdir ' . configDir)
-    call system('mkdir ' . myUndoDir)
+    " Create dirs internally if not exists
+    if !isdirectory(expand(configDir))
+        call mkdir(expand(configDir), 'p')
+    endif
+    if !isdirectory(myUndoDir)
+        call mkdir(myUndoDir, 'p')
+    endif
     let &undodir = myUndoDir
     set undofile
 endif
