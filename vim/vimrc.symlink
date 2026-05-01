@@ -6,6 +6,11 @@
 syntax on
 filetype plugin indent on
 
+" Disable coc.nvim if node is not installed to prevent warning
+if !executable('node')
+  let g:did_coc_loaded = 1
+endif
+
 " General options
 let mapleader = ","
 set smartcase

@@ -1,3 +1,8 @@
+" Don't configure CoC if the environment has no node
+if !executable('node')
+  finish
+endif
+
 " CoC maps that apply to all language extensions.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
